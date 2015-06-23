@@ -1,0 +1,18 @@
+PASS
+coverage: 100.0% of statements
+ok  	github.com/0xor1/gameseed/src/server/src/api	0.041s
+
+
+PASS
+coverage: 100.0% of statements
+ok  	github.com/0xor1/gameseed/src/server/src/game	0.030s
+
+
+PASS
+coverage: 100.0% of statements
+ok  	github.com/0xor1/gameseed/src/server/src/session	0.031s
+
+
+PASS
+coverage: 100.0% of statements
+ok  	github.com/0xor1/gameseed/src/server/src/sys	0.029s
