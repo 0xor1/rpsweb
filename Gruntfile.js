@@ -49,11 +49,17 @@ module.exports = function(grunt){
             testE2e: {
                 cmd: 'cd test/e2e && node ../../node_modules/protractor/bin/protractor protractor.conf.js'
             },
-            startAppEngine: {
+            startBuildAppEngine: {
                 cmd: 'cd build && goapp serve'
             },
-            deployAppEngine: {
+            startDevAppEngine: {
+                cmd: 'cd src && goapp serve'
+            },
+            deployBuildAppEngine: {
                 cmd: 'appcfg.py --oauth2 update build'
+            },
+            deployDevAppEngine: {
+                cmd: 'appcfg.py --oauth2 update src'
             }
         },
 
@@ -133,13 +139,16 @@ module.exports = function(grunt){
     grunt.registerTask('buildServer', ['exec:buildServer', 'copy:serverExe']);
     grunt.registerTask('cleanServerBuild', ['clean:serverBuild']);
 
+    grunt.registerTask('buildAppEngine', ['copy:appEngine']);
+    grunt.registerTask('cleanAppEngine', ['clean:appEngine']);
+
     grunt.registerTask('buildClient', ['requirejs:compile', 'uglify:mainJsBuild', 'copy:clientAppCache', 'copy:styleBuild', 'copy:clientIndex', 'processhtml:clientIndex', 'clean:mainJsBuild', 'clean:styleBuild']);
     grunt.registerTask('testClient', ['exec:testClient']);
     grunt.registerTask('cleanClientBuild', ['clean:clientBuild']);
     grunt.registerTask('cleanClientTest', ['clean:clientTest']);
 
-    grunt.registerTask('buildAll', ['buildServer', 'buildClient']);
-    grunt.registerTask('cleanAllBuild', ['cleanServerBuild', 'cleanClientBuild']);
+    grunt.registerTask('buildAll', ['buildServer', 'buildAppEngine', 'buildClient']);
+    grunt.registerTask('cleanAllBuild', ['cleanServerBuild', 'cleanAppEngine', 'cleanClientBuild']);
 
     grunt.registerTask('watchSass', ['compass:dev']);
     grunt.registerTask('cleanSass', ['clean:sass']);
@@ -147,17 +156,19 @@ module.exports = function(grunt){
     grunt.registerTask('startDevServer', ['exec:startDevServer']);
     grunt.registerTask('startBuildServer', ['exec:startBuildServer']);
 
+    grunt.registerTask('startDevAppEngine', ['exec:startDevAppEngine']);
+    grunt.registerTask('startBuildAppEngine', ['exec:startBuildAppEngine']);
+
+    grunt.registerTask('deployBuildAppEngine', ['exec:deployBuildAppEngine']);
+    grunt.registerTask('deployDevAppEngine', ['exec:deployDevAppEngine']);
+
     grunt.registerTask('updateSeleniumServer', ['exec:updateSeleniumServer']);
     grunt.registerTask('startSeleniumServer', ['exec:startSeleniumServer']);
 
     grunt.registerTask('testE2e', ['exec:testE2e']);
     grunt.registerTask('cleanE2e', ['clean:e2e']);
 
-    grunt.registerTask('buildAppEngine', ['copy:appEngine']);
-    grunt.registerTask('cleanAppEngine', ['clean:appEngine']);
-    grunt.registerTask('startAppEngine', ['exec:startAppEngine']);
-    grunt.registerTask('deployAppEngine', ['exec:deployAppEngine']);
 
-    grunt.registerTask('nuke', ['cleanAllBuild', 'cleanClientTest', 'cleanSass', 'cleanE2e', 'cleanAppEngine']);
+    grunt.registerTask('nuke', ['cleanAllBuild', 'cleanClientTest', 'cleanSass', 'cleanE2e']);
 
 };
