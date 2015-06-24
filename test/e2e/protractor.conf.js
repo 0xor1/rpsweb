@@ -2,7 +2,7 @@ var ScreenshotReporter = require('protractor-screenshot-reporter');
 var path = require('path');
 
 exports.config = {
-    baseUrl: 'http://gameseed-1.appspot.com',
+    baseUrl: 'http://rpsweb-1.appspot.com',
 
     seleniumAddress: 'http://localhost:4444/wd/hub',
 

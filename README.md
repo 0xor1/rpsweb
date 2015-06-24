@@ -11,7 +11,7 @@ the css and js files and then inline them into the index.html file. The project 
 * End-to-End tests
 
 The app can be built into a standalone server.exe to run on any machine, it also comes with a preconfigured app.yaml file
-for easy upload to google app engine. You can see the project running on [GAE here](http://gameseed-1.appspot.com).
+for easy upload to google app engine. You can see the project running on [GAE here](http://rpsweb-1.appspot.com).
 
 ##Setup Checklist
 
@@ -22,19 +22,19 @@ for easy upload to google app engine. You can see the project running on [GAE he
     * [Ruby](https://www.ruby-lang.org)
         * [Compass](http://compass-style.org/)
 
-2. Create the directory `$GOPATH/src/github.com/0xor1/gameseed` and check this repo out into it
+2. Create the directory `$GOPATH/src/github.com/0xor1/rpsweb` and check this repo out into it
 
-3. `cd` to `$GOPATH/src/github.com/0xor1/gameseed` and run:
+3. `cd` to `$GOPATH/src/github.com/0xor1/rpsweb` and run:
     ```sh
         npm install
         npm install -g grunt-cli
     ```
 
-4. Local request redirection is required, for local development, ([Fiddler](http://www.telerik.com/fiddler) is a good tool for this) to send `gameseed-1.appspot.com` to `127.0.0.1:8080`
+4. Local request redirection is required, for local development, ([Fiddler](http://www.telerik.com/fiddler) is a good tool for this) to send `rpsweb-1.appspot.com` to `127.0.0.1:8080`
 
 5. Run the grunt tasks `watchSass`, `buildServer` then `startDevServer`
 
-6. Open a browser and navigate to `gameseed-1.appspot.com`, if you are looking at a web page with some buttons on, congratz everything worked.
+6. Open a browser and navigate to `rpsweb-1.appspot.com`, if you are looking at a web page with some buttons on, congratz everything worked.
 
 ##Common Tasks
 

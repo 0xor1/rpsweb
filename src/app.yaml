@@ -1,15 +1,7 @@
-application: gameseed-1
+application: rpsweb-1
 version: 1
 runtime: go
 api_version: go1
-
-#in the src folder this file is not runnable
-#needs building to the build folder and then
-#running from there. use:
-#grunt buildAppEngine
-#grunt startAppEngine
-#and to deploy use:
-#grunt deployAppEngine
 
 handlers:
 - url: /(.*\.css)

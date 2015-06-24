@@ -1,7 +1,7 @@
 {
   "version": "0.0.0",
   "private": true,
-  "name": "gameseed",
+  "name": "rpsweb",
   "description": "A seed project for web games built with angular and gorilla",
   "author": {
     "name": "Daniel Robinson",
