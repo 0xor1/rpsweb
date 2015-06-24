@@ -4,11 +4,10 @@ rpsweb
 A simple game project written with [**Angular**](https://angularjs.org/), [**Require**](http://requirejs.org/)
 and [**SASS**](http://sass-lang.com/) on the client side and [**Go**](http://golang.org/) with [**Gorilla Toolkit**](http://www.gorillatoolkit.org/)
 on the server side. The project is configured as a true single page web app in that the build scripts will concat and minify all
-the css and js files and then inline them into the index.html file. The project comes chock full with goodies:
+the css and js files and then inline them into the index.html file. The project comes with:
 
 * Automated build and testing tasks
-* Server side unit tests
-* Client side unit tests
+* Unit tests
 * End-to-End tests
 
 The app can be built into a standalone server.exe to run on any machine, it also comes with a preconfigured app.yaml file
@@ -18,6 +17,7 @@ for easy upload to google app engine. You can see the project running on [GAE he
 
 1. Install:
     * [Go](http://golang.org/)
+        * [Go AppEngine SDK](https://cloud.google.com/appengine/downloads)
     * [Node](https://nodejs.org/) v0.12.*
     * [Ruby](https://www.ruby-lang.org)
         * [Compass](http://compass-style.org/)
@@ -41,9 +41,11 @@ for easy upload to google app engine. You can see the project running on [GAE he
 There is a grunt task to cover all the basic requirements of development, run the following commands as `grunt <cmd>`:
 
 * `buildServer` will build the server and copy the resulting server.exe to `build\server`
-* `testServer` will run all the server unit tests and drop the results and coverage reports in `test\unit\server`
-* `cleanServerBuild` will delete all generated files from running `buildServer`
-* `cleanServerTest` will delete all generated files from running `testServer`
+* `cleanServer` will delete all generated files from running `buildServer`
+
+
+* `buildAppEngine` will copy the necessary files to `build`
+* `cleanAppEngine` will delete app files from `build`
 
 
 * `buildClient` will write the index.html file to `build\client` with the concatenated and minified css and js inlined and stripped of its AMD loading code.
@@ -53,10 +55,8 @@ There is a grunt task to cover all the basic requirements of development, run th
 * `cleanClientTest` will delete all generated files from running `testClient`
 
 
-* `buildAll` is a convenience command for `buildServer` and `buildClient`
-* `testAll` is a convenience command for `testServer` and `testClient`
-* `cleanAllBuild` is a convenience command for `cleanServerBuild` and `cleanClientBuild`
-* `cleanAllTest` is a convenience command for `cleanServerTest` and `cleanClientTest`
+* `buildAll` is a convenience command for `buildServer`, `buildAppEngine` and `buildClient`
+* `cleanAllBuild` is a convenience command for `cleanServerBuild`, `cleanAppEngine` and `cleanClientBuild`
 
 
 * `watchSass` will start compass auto compilation of all sass files in the `src\client` directory
@@ -67,6 +67,10 @@ There is a grunt task to cover all the basic requirements of development, run th
 * `startBuildServer` will start the `server.exe` in the `build\server` directory
 
 
+* `startDevAppEngine` will run the server in the local app engine environment from `src`
+* `startBuildAppEngine` will run the server in the local app engine environment from `build`
+
+
 * `updateSeleniumServer` will run `webdriver-manager update`
 * `startSeleniumServer` will run `webdriver-manager start`
 
@@ -75,12 +79,6 @@ There is a grunt task to cover all the basic requirements of development, run th
 * `cleanE2e` will delete all generated files from running `testE2e`
 
 
-* `buildAppEngine` will copy the necessary files to `build`
-* `cleanAppEngine` will delete app files from `build`
-* `startAppEngine` will run the server in the local app engine environment from `build`
-* `deployAppEngine` will deploy the app to google app engine from `build`
-
-
-* `nuke` is a convenience command for `cleanAllBuild`, `cleanAllTest`, `cleanSass`, `cleanE2e` and `cleanAppEngineBuild`
+* `nuke` is a convenience command for `cleanAllBuild`, `cleanClientTest`, `cleanSass` and `cleanE2e`
 
 
