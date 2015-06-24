@@ -9,7 +9,7 @@ module.exports = function(grunt){
         requirejs: {
             compile: {
                 options: {
-                    mainConfigFile: 'src/client/conf.js',
+                    mainConfigFile: 'build/client/conf.js',
                     include: '../main',
                     findNestedDependencies: true,
                     optimize: 'none',
@@ -24,6 +24,21 @@ module.exports = function(grunt){
                         }));
                     }
                 }
+            }
+        },
+
+        htmlmin: {
+            build: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'build/client/component',
+                    src: '**/*.html',
+                    dest: 'build/client/component'
+                }]
             }
         },
 
@@ -68,22 +83,16 @@ module.exports = function(grunt){
                 src: 'src/server.exe',
                 dest: 'build/server.exe'
             },
-            clientIndex: {
-                src: 'src/client/index.html',
-                dest: 'build/client/index.html'
-            },
-            clientAppCache: {
-                src: 'src/client/app.appcache',
-                dest: 'build/client/app.appcache'
-            },
-            styleBuild: {
-                src: 'src/client/style.css',
-                dest: 'build/client/style.css'
-            },
             appEngine: {
                 src: 'src/app.*',
                 dest: 'build/',
                 flatten: true,
+                expand: true
+            },
+            fullClient: {
+                cwd: 'src/client',
+                src: '**',
+                dest: 'build/client/',
                 expand: true
             }
         },
@@ -105,9 +114,9 @@ module.exports = function(grunt){
         },
 
         clean: {
-            mainJsBuild: ['build/client/main.js'],
-            styleBuild: ['build/client/style.css'],
-            serverBuild: ['build', 'src/server.exe'],
+            allClientBuildExceptIndexHtml: ['build/client/**/*', '!build/client/index.html'],
+            buildCss: ['build/client/**/*.css'],
+            server: ['build/server.exe', 'src/server.exe'],
             clientBuild: ['build/client'],
             clientTest: ['test/unit/client/coverage/*','test/unit/client/results/*'],
             sass: ['src/client/**/*.css'],
@@ -124,6 +133,15 @@ module.exports = function(grunt){
                     watch: true,
                     trace: true
                 }
+            },
+            build: {
+                options: {
+                    outputStyle: 'compressed',
+                    cssPath: 'build/client',
+                    sassPath: 'build/client',
+                    watch: false,
+                    trace: true
+                }
             }
         }
     });
@@ -135,20 +153,21 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
     grunt.registerTask('buildServer', ['exec:buildServer', 'copy:serverExe']);
-    grunt.registerTask('cleanServerBuild', ['clean:serverBuild']);
+    grunt.registerTask('cleanServer', ['clean:server']);
 
     grunt.registerTask('buildAppEngine', ['copy:appEngine']);
     grunt.registerTask('cleanAppEngine', ['clean:appEngine']);
 
-    grunt.registerTask('buildClient', ['requirejs:compile', 'uglify:mainJsBuild', 'copy:clientAppCache', 'copy:styleBuild', 'copy:clientIndex', 'processhtml:clientIndex', 'clean:mainJsBuild', 'clean:styleBuild']);
+    grunt.registerTask('buildClient', ['copy:fullClient', 'clean:buildCss', 'compass:build', 'htmlmin:build', 'requirejs:compile', 'uglify:mainJsBuild', 'processhtml:clientIndex', 'clean:allClientBuildExceptIndexHtml']);
     grunt.registerTask('testClient', ['exec:testClient']);
     grunt.registerTask('cleanClientBuild', ['clean:clientBuild']);
     grunt.registerTask('cleanClientTest', ['clean:clientTest']);
 
     grunt.registerTask('buildAll', ['buildServer', 'buildAppEngine', 'buildClient']);
-    grunt.registerTask('cleanAllBuild', ['cleanServerBuild', 'cleanAppEngine', 'cleanClientBuild']);
+    grunt.registerTask('cleanAllBuild', ['cleanServer', 'cleanAppEngine', 'cleanClientBuild']);
 
     grunt.registerTask('watchSass', ['compass:dev']);
     grunt.registerTask('cleanSass', ['clean:sass']);
@@ -167,8 +186,7 @@ module.exports = function(grunt){
 
     grunt.registerTask('testE2e', ['exec:testE2e']);
     grunt.registerTask('cleanE2e', ['clean:e2e']);
-
-
+    
     grunt.registerTask('nuke', ['cleanAllBuild', 'cleanClientTest', 'cleanSass', 'cleanE2e']);
 
 };
