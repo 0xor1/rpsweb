@@ -19,7 +19,7 @@ func main() {
 	log.Println(`Server Starting...`)
 
 	baseRouter := mux.NewRouter()
-	fileServer := http.FileServer(http.Dir(`./client`))
+	fileServer := http.FileServer(http.Dir(`../client`))
 
 	domainRouter := baseRouter.Host(domain).Subrouter()
 	domainRouter.Methods(`GET`).PathPrefix(`/`).Handler(fileServer)

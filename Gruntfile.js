@@ -44,13 +44,13 @@ module.exports = function(grunt){
 
         exec: {
             buildServer: {
-                cmd: 'go build -o src/server.exe -v src/server.go'
+                cmd: 'go build -o src/server/server.exe -v src/server/server.go'
             },
             startDevServer: {
-                cmd: 'cd src && server.exe'
+                cmd: 'cd src/server && server.exe'
             },
             startBuildServer: {
-                cmd: 'cd build && server.exe'
+                cmd: 'cd build/server && server.exe'
             },
             updateSeleniumServer: {
                 cmd: 'node node_modules/protractor/bin/webdriver-manager update'
@@ -80,8 +80,8 @@ module.exports = function(grunt){
 
         copy: {
             serverExe: {
-                src: 'src/server.exe',
-                dest: 'build/server.exe'
+                src: 'src/server/server.exe',
+                dest: 'build/server/server.exe'
             },
             appEngine: {
                 src: 'src/app.*',
@@ -116,7 +116,7 @@ module.exports = function(grunt){
         clean: {
             allClientBuildExceptIndexHtml: ['build/client/**/*', '!build/client/index.html'],
             buildCss: ['build/client/**/*.css'],
-            server: ['build/server.exe', 'src/server.exe'],
+            server: ['build/server', 'src/server/server.exe'],
             clientBuild: ['build/client'],
             clientTest: ['test/unit/client/coverage/*','test/unit/client/results/*'],
             sass: ['src/client/**/*.css'],
@@ -186,7 +186,7 @@ module.exports = function(grunt){
 
     grunt.registerTask('testE2e', ['exec:testE2e']);
     grunt.registerTask('cleanE2e', ['clean:e2e']);
-    
+
     grunt.registerTask('nuke', ['cleanAllBuild', 'cleanClientTest', 'cleanSass', 'cleanE2e']);
 
 };
