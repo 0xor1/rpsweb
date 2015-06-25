@@ -18,6 +18,7 @@ for easy upload to google app engine. You can see the project running on [GAE he
 1. Install:
     * [Go](http://golang.org/)
         * [Go AppEngine SDK](https://cloud.google.com/appengine/downloads)
+        * Add `GOROOT` and `GOPATH` to your environment variables and add `GOROOT\bin` and `go_appengine` to your `PATH`
     * [Node](https://nodejs.org/) v0.12.*
     * [Ruby](https://www.ruby-lang.org)
         * [Compass](http://compass-style.org/)
@@ -48,8 +49,7 @@ There is a grunt task to cover all the basic requirements of development, run th
 * `cleanAppEngine` will delete app files from `build`
 
 
-* `buildClient` will write the index.html file to `build\client` with the concatenated and minified css and js inlined and stripped of its AMD loading code.
-  It should be noted that this task copies the existing root style.css file to the build folder for inlining, so any Sass changes need to have completed compilation before this task is run
+* `buildClient` will write the index.html file to `build\client` with the concatenated and minified css and js inlined and stripped of its AMD loading code
 * `testClient` will run all the client unit tests and drop the results and coverage reports in `test\unit\client`
 * `cleanClientBuild` will delete all generated files from running `buildClient`
 * `cleanClientTest` will delete all generated files from running `testClient`
