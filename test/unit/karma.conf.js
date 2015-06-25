@@ -1,17 +1,17 @@
 module.exports = function(config) {
     config.set({
 
-        basePath: '../../../',
+        basePath: '../../',
 
         frameworks: ['jasmine', 'requirejs'],
 
         files: [
-            {pattern: 'test/unit/client/require.conf.js', included: true},
+            {pattern: 'test/unit/require.conf.js', included: true},
             {pattern: 'src/client/lib/*.js', included: false},
-            {pattern: 'test/unit/client/lib/*.js', included: false},
+            {pattern: 'test/unit/lib/*.js', included: false},
             {pattern: 'src/client/component/**/*.js', included: false},
             {pattern: 'src/client/component/**/*.html', included: false},
-            {pattern: 'test/unit/client/tests/component/*.js', included: false}
+            {pattern: 'test/unit/tests/component/**/*.js', included: false}
         ],
 
         plugins: [
@@ -33,7 +33,7 @@ module.exports = function(config) {
 
         coverageReporter: {
             type: 'html',
-            dir: 'test/unit/client/coverage/'
+            dir: 'test/unit/coverage/'
         },
 
         htmlReporter: {

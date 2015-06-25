@@ -59,7 +59,7 @@ module.exports = function(grunt){
                 cmd: 'node node_modules/protractor/bin/webdriver-manager start'
             },
             testClient: {
-                cmd: 'cd test/unit/client && node ../../../node_modules/karma/bin/karma start'
+                cmd: 'cd test/unit && node ../../node_modules/karma/bin/karma start'
             },
             testE2e: {
                 cmd: 'cd test/e2e && node ../../node_modules/protractor/bin/protractor protractor.conf.js'
@@ -118,7 +118,7 @@ module.exports = function(grunt){
             buildCss: ['build/client/**/*.css'],
             server: ['build/server', 'src/server/server.exe'],
             clientBuild: ['build/client'],
-            clientTest: ['test/unit/client/coverage/*','test/unit/client/results/*'],
+            clientTest: ['test/unit/coverage/*','test/unit/results/*'],
             sass: ['src/client/**/*.css'],
             e2e: ['test/e2e/results/*'],
             appEngine: ['build/app.*']
