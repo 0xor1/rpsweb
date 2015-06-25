@@ -6,10 +6,10 @@ define('home/ctrl', [
     return function(ngModule){
         ngModule
         .controller('homeCtrl', [ '$scope', '$http', '$location', function($scope, $http, $location){
-            $scope.play = function(){
-                $http.post('api/play').success(function(data){
-                    if(data.gameId)
-                        $location.path('game/' + data.gameId);
+            $scope.create = function(){
+                $http.post('api/create').success(function(data){
+                    if(data.id)
+                        $location.path('game/' + data.id);
                 });
             };
             $scope.about = function(){

@@ -11,7 +11,7 @@ define('game/ctrl', [
             var getInfoTimeout = null;
             $scope.gameId = $routeParams.gameId;
             $scope.getInitialInfo = function(){
-                $http.post('api/getInitialInfo', {gameId: $scope.gameId}).success(function(data){
+                $http.post('api/join', {gameId: $scope.gameId}).success(function(data){
                     ng.extend($scope, data);
                     $scope.turnStartDate = Date.parse($scope.turnStart);
                     getInfoTimeout = setTimeout($scope.getInfo, 1000);
