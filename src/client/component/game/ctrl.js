@@ -8,31 +8,31 @@ define('game/ctrl', [
     return function(ngModule){
         ngModule
         .controller('gameCtrl', [ '$scope', '$routeParams', '$http', function($scope, $routeParams, $http){
-            var getInfoTimeout = null;
-            $scope.gameId = $routeParams.gameId;
-            $scope.getInitialInfo = function(){
-                $http.post('api/join', {gameId: $scope.gameId}).success(function(data){
+            var pollTimeout = null;
+            $scope.id = $routeParams.id;
+            $scope.join = function(){
+                $http.post('api/join', {id: $scope.id}).success(function(data){
                     ng.extend($scope, data);
                     $scope.turnStartDate = Date.parse($scope.turnStart);
-                    getInfoTimeout = setTimeout($scope.getInfo, 1000);
+                    pollTimeout = setTimeout($scope.poll, 1000);
                     console.log(data);
                 });
             };
-            $scope.getInfo = function(){
-                $http.post('api/getInfo', {gameId: $scope.gameId, version: $scope.version}).success(function(data){
+            $scope.poll = function(){
+                $http.post('api/poll', {id: $scope.id, v: $scope.v}).success(function(data){
                     ng.extend($scope, data);
                     $scope.turnStartDate = Date.parse($scope.turnStart);
                     if(!$scope.myTurn){
-                        getInfoTimeout = setTimeout($scope.getInfo, 1000);
+                        getInfoTimeout = setTimeout($scope.poll, 1000);
                     }else{
                         getInfoTimeout = null;
                     }
                     console.log(data);
                 });
             };
-            $scope.takeTurn = function(rowIdx, colIdx){
+            $scope.choose = function(choice){
                 if($scope.myTurn) {
-                    $http.post('api/takeTurn', {row: rowIdx, col: colIdx}).success(function (data) {
+                    $http.post('api/act', {act: 'choose', val: choice}).success(function (data) {
                         ng.extend($scope, data);
                         $scope.turnStartDate = Date.parse($scope.turnStart);
                         getInfoTimeout = setTimeout($scope.getInfo, 1000);
@@ -40,7 +40,15 @@ define('game/ctrl', [
                     });
                 }
             };
-            $scope.getInitialInfo();
+            $scope.restart = function(){
+                $http.post('api/act', {act: 'restart'}).success(function (data) {
+                    ng.extend($scope, data);
+                    $scope.turnStartDate = Date.parse($scope.turnStart);
+                    getInfoTimeout = setTimeout($scope.poll, 1000);
+                    console.log(data);
+                });
+            };
+            $scope.join();
         }])
         .directive('cpGame', function(){
             return {restrict: 'E', template: tpl};

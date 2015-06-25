@@ -12,9 +12,7 @@ define('home/ctrl', [
                         $location.path('game/' + data.id);
                 });
             };
-            $scope.about = function(){
-                $location.path('about');
-            };
+            $scope.create();
         }])
         .directive('cpHome', function(){
             return {restrict: 'E', template: tpl};

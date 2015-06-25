@@ -1,13 +1,13 @@
 require([
     'ng',
-    'components'
+    'registry'
 ], function(
     ng,
-    components
+    registry
 ){
     var app = ng.module('app', [
         'ngRoute',
-        'components'
+        'registry'
     ]);
 
     app.config(['$routeProvider', function($routeProvider) {
@@ -15,7 +15,7 @@ require([
             when('/', {
                 template: '<cp-home ng-controller="homeCtrl"></cp-home>'
             }).
-            when('/game/:gameId', {
+            when('/game/:id', {
                 template: '<cp-game ng-controller="gameCtrl"></cp-game>'
             }).
             when('/about', {

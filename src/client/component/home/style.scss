@@ -1,30 +1,5 @@
 @import "../../global";
 
 cp-home {
-  @include default();
-  display: flex;
-  color: #fff;
-  font-size: 21px;
-  .btn-stack {
-    margin: auto;
-    .btn {
-      cursor: pointer;
-      text-align: center;
-      padding: 10px 20px 10px 20px;
-      border-radius: 28px;
-      background-image: linear-gradient(to bottom, #3498db, #2980b9);
-      &:first-child{
-        margin-bottom: 10px;
-      }
-      &:last-child{
-        margin-top: 10px;
-      }
-      &:hover {
-        background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-      }
-      &:active{
-        background-image: linear-gradient(to bottom, #3498db, #2980b9);
-      }
-    }
-  }
+
 }
