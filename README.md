@@ -56,7 +56,7 @@ There is a grunt task to cover all the basic requirements of development, run th
 
 
 * `buildAll` is a convenience command for `buildServer`, `buildAppEngine` and `buildClient`
-* `cleanAllBuild` is a convenience command for `cleanServerBuild`, `cleanAppEngine` and `cleanClientBuild`
+* `cleanAllBuild` is a convenience command for `cleanServer`, `cleanAppEngine` and `cleanClientBuild`
 
 
 * `watchSass` will start compass auto compilation of all sass files in the `src\client` directory
