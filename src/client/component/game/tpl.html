@@ -2,10 +2,6 @@
     <div class=""></div>
 </div>
 
-<div class="choices">
-    <div class="row" ng-repeat="row in board track by $index" ng-init="rowIdx = $index">
-        <div class="val" ng-repeat="val in row track by $index" ng-init="colIdx = $index" ng-click="takeTurn(rowIdx, colIdx)">
-            {{val}}
-        </div>
-    </div>
+<div class="options">
+    <button class="row" ng-repeat="option in options" ng-click="choose(option)">{{option}}</button>
 </div>

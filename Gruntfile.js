@@ -42,6 +42,12 @@ module.exports = function(grunt){
             }
         },
 
+        'json-minify': {
+            build: {
+                files: 'build/client/**/*.json'
+            }
+        },
+
         exec: {
             buildServer: {
                 cmd: 'go build -o src/server/server.exe -v src/server/server.go'
@@ -114,7 +120,7 @@ module.exports = function(grunt){
         },
 
         clean: {
-            allClientBuildExceptIndexHtml: ['build/client/**/*', '!build/client/index.html'],
+            allClientBuildExceptIndexHtml: ['build/client/**/*', '!build/client/index.html', '!build/client/robot.txt', '!build/client/favicon.ico'],
             buildCss: ['build/client/**/*.css'],
             server: ['build/server', 'src/server/server.exe'],
             clientBuild: ['build/client'],
@@ -154,6 +160,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-json-minify');
 
     grunt.registerTask('buildServer', ['exec:buildServer', 'copy:serverExe']);
     grunt.registerTask('cleanServer', ['clean:server']);
@@ -161,7 +168,7 @@ module.exports = function(grunt){
     grunt.registerTask('buildAppEngine', ['copy:appEngine']);
     grunt.registerTask('cleanAppEngine', ['clean:appEngine']);
 
-    grunt.registerTask('buildClient', ['copy:fullClient', 'clean:buildCss', 'compass:build', 'htmlmin:build', 'requirejs:compile', 'uglify:mainJsBuild', 'processhtml:clientIndex', 'clean:allClientBuildExceptIndexHtml']);
+    grunt.registerTask('buildClient', ['copy:fullClient', 'clean:buildCss', 'compass:build', 'htmlmin:build', 'json-minify:build', 'requirejs:compile', 'uglify:mainJsBuild', 'processhtml:clientIndex', 'clean:allClientBuildExceptIndexHtml']);
     grunt.registerTask('testClient', ['exec:testClient']);
     grunt.registerTask('cleanClientBuild', ['clean:clientBuild']);
     grunt.registerTask('cleanClientTest', ['clean:clientTest']);

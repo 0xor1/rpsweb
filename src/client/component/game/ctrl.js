@@ -7,17 +7,16 @@ define('game/ctrl', [
 ){
     return function(ngModule){
         ngModule
-        .controller('gameCtrl', [ '$scope', '$routeParams', '$http', function($scope, $routeParams, $http){
+        .controller('gameCtrl', [ '$scope', '$routeParams', '$http', 'i18n', function($scope, $routeParams, $http, i18n){
             var pollTimeout = null;
             $scope.id = $routeParams.id;
-            $scope.join = function(){
-                $http.post('api/join', {id: $scope.id}).success(function(data){
-                    ng.extend($scope, data);
-                    $scope.turnStartDate = Date.parse($scope.turnStart);
-                    pollTimeout = setTimeout($scope.poll, 1000);
-                    console.log(data);
-                });
-            };
+            $http.post('api/join', {id: $scope.id}).success(function(data){
+                ng.extend($scope, data);
+                $scope.turnStartDate = Date.parse($scope.turnStart);
+                pollTimeout = setTimeout($scope.poll, 1000);
+                console.log(data);
+                console.log($scope.turnStartDate);
+            });
             $scope.poll = function(){
                 $http.post('api/poll', {id: $scope.id, v: $scope.v}).success(function(data){
                     ng.extend($scope, data);
