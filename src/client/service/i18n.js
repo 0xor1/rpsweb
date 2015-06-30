@@ -11,16 +11,10 @@ define('service/i18n', [
                     if(typeof i18nTxt === 'string'){
                         i18nTxt = JSON.parse(i18nTxt);
                     }
-                    langChangeHandler = function(event, lang){
-                        idx = i18nTxt.langs.indexOf(lang);
-                        if(idx === -1){
-                            idx = 0;
-                        }
-                        if(scope.lang != i18nTxt.langs[idx]){
-                            scope.$applyAsync(function(){
-                                scope.lang = i18nTxt.langs[idx];
-                            })
-                        }
+                    var langChangeHandler = function(event, lang){
+                        var idx = i18nTxt.langs.indexOf(lang);
+                        idx = idx === -1? 0: idx;
+                        scope.lang = scope.lang != i18nTxt.langs[idx]? i18nTxt.langs[idx]: scope.lang;
                     };
                     langChangeHandler(null, last_lang);
                     scope.$on(lang_change_event, langChangeHandler);

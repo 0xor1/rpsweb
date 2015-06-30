@@ -8,10 +8,13 @@ module.exports = function(config) {
         files: [
             {pattern: 'test/unit/require.conf.js', included: true},
             {pattern: 'src/client/lib/*.js', included: false},
-            {pattern: 'test/unit/lib/*.js', included: false},
             {pattern: 'src/client/component/**/*.js', included: false},
             {pattern: 'src/client/component/**/*.html', included: false},
-            {pattern: 'test/unit/tests/component/**/*.js', included: false}
+            {pattern: 'src/client/component/**/*.json', included: false},
+            {pattern: 'src/client/service/**/*.js', included: false},
+            {pattern: 'test/unit/lib/*.js', included: false},
+            {pattern: 'test/unit/tests/component/**/*.js', included: false},
+            {pattern: 'test/unit/tests/service/**/*.js', included: false}
         ],
 
         plugins: [
@@ -28,7 +31,8 @@ module.exports = function(config) {
         reporters: ['coverage', 'html', 'progress'],
 
         preprocessors: {
-            'src/client/component/**/*.js': ['coverage']
+            'src/client/component/**/*.js': ['coverage'],
+            'src/client/service/**/*.js': ['coverage']
         },
 
         coverageReporter: {
