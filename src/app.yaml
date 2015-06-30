@@ -1,5 +1,5 @@
 application: rpsweb-1
-version: 1
+version: alpha-0001
 runtime: go
 api_version: go1
 

@@ -22,7 +22,7 @@ func main() {
 	domainRouter.Methods(`GET`).PathPrefix(`/`).Handler(fileServer)
 
 	apiRouter := domainRouter.Methods(`POST`).PathPrefix(`/api`).Subrouter()
-	rps.RouteLocalTest(apiRouter, []string{`rck`, `ppr`, `scr`}, 1000)
+	rps.RouteLocalTest(apiRouter, []string{`rck`, `ppr`, `scr`}, 1000, `80e2cbc13f08431f`, `e5714989408a4f11`, `6d497021d03c4d66`, `316b7ee3c15046c7`)
 
 	http.Handle(`/`, baseRouter)
 	log.Println(`Server Listening on Port: ` + listenPort)
