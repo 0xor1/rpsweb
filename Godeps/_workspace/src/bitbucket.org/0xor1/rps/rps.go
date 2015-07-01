@@ -8,7 +8,6 @@ import(
 	`github.com/0xor1/oak`
 	`github.com/0xor1/joak`
 	`github.com/gorilla/mux`
-	`golang.org/x/net/context`
 )
 
 const(
@@ -23,11 +22,11 @@ func RouteLocalTest(router *mux.Router, options []string, resultHalfMatrix [][]i
 	joak.RouteLocalTest(router, newGame, 300, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct)
 }
 
-func RouteGaeProd(router *mux.Router, options []string, resultHalfMatrix [][]int, millisecsPerChoice int, newAuthKey string, newCrypKey string, oldAuthKey string, oldCrypKey string, ctx context.Context) error {
+func RouteGaeProd(router *mux.Router, options []string, resultHalfMatrix [][]int, millisecsPerChoice int, newAuthKey string, newCrypKey string, oldAuthKey string, oldCrypKey string, ctxFactory joak.ContextFactory) error {
 	initStaticProperties(options, resultHalfMatrix, millisecsPerChoice)
 	deleteAfter, _ := time.ParseDuration(_DELETE_AFTER)
 	clearAfter, _ := time.ParseDuration(_DELETE_AFTER)
-	return joak.RouteGaeProd(router, newGame, 300, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter, clearAfter, `game`, ctx)
+	return joak.RouteGaeProd(router, newGame, 300, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter, clearAfter, `game`, ctxFactory)
 }
 
 func initStaticProperties(ops []string, rhm [][]int, millisecsPerChoice int){
@@ -49,11 +48,20 @@ func getJoinResp(userId string, e oak.Entity) oak.Json {
 
 func getEntityChangeResp(userId string, e oak.Entity) oak.Json {
 	g, _ := e.(*game)
-	return oak.Json{
+	json := oak.Json{
 		`turnStart`: g.TurnStart,
 		`state`: g.State,
 		`choices`: g.PlayerChoices,
 	}
+	if g.State == _GAME_IN_PROGRESS {
+		choices := [2]string{}
+		idx := g.getPlayerIdx(userId)
+		if idx != -1 {
+			choices[idx] = g.PlayerChoices[idx]
+		}
+		json[`choices`] = choices
+	}
+	return json
 }
 
 func performAct(json oak.Json, userId string, e oak.Entity) (err error) {

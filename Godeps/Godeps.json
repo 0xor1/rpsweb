@@ -7,7 +7,7 @@
 	"Deps": [
 		{
 			"ImportPath": "bitbucket.org/0xor1/rps",
-			"Rev": "acd75d1c1df1364b0028b08d44caad05f4bb6103"
+			"Rev": "3694a4375430ad4513f2b5d6283ac1db9dd84474"
 		},
 		{
 			"ImportPath": "code.google.com/p/go-uuid/uuid",
@@ -20,11 +20,11 @@
 		},
 		{
 			"ImportPath": "github.com/0xor1/joak",
-			"Rev": "762c9c88d6fc7a657dbfd24108bf53f26791a813"
+			"Rev": "d899a881dbbdc39bd37842661a03f737bda9c8de"
 		},
 		{
 			"ImportPath": "github.com/0xor1/oak",
-			"Rev": "08ed4a11edc20a32b0f72cd893c22726909b2e7f"
+			"Rev": "ee5077378c3d31bdf4d00375fa35f7ffd591e639"
 		},
 		{
 			"ImportPath": "github.com/0xor1/sid",

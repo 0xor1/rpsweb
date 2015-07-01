@@ -6,7 +6,6 @@ import(
 	`testing`
 	`github.com/0xor1/oak`
 	`github.com/gorilla/mux`
-	`golang.org/x/net/context`
 	`github.com/stretchr/testify/assert`
 )
 
@@ -21,7 +20,7 @@ func Test_RouteLocal(t *testing.T){
 }
 
 func Test_RouteGae(t *testing.T){
-	RouteGaeProd(mux.NewRouter(), []string{_RCK, _PPR, _SCR}, [][]int{[]int{1}, []int{-1, 1}}, 1000, ``, ``, ``, ``, context.Background())
+	RouteGaeProd(mux.NewRouter(), []string{_RCK, _PPR, _SCR}, [][]int{[]int{1}, []int{-1, 1}}, 1000, ``, ``, ``, ``, nil)
 }
 
 func Test_getJoinResp(t *testing.T){
@@ -50,8 +49,24 @@ func Test_getEntityChangeResp(t *testing.T){
 	var zeroTime time.Time
 	assert.Equal(t, zeroTime, json[`turnStart`], `turnStart should be zero time`)
 	assert.Equal(t, g.State, json[`state`], `state should be g.State`)
-	assert.Equal(t, g.PlayerChoices, json[`choices`], `state should be g.State`)
+	assert.Equal(t, g.PlayerChoices, json[`choices`], `choices should be g.PlayerChoices`)
 	assert.Equal(t, 3, len(json), `json should contain 2 entries`)
+}
+
+func Test_getEntityChangeResp_when_one_user_has_entered_a_choice_and_tother_hasnt(t *testing.T){
+	standardSetup()
+	g := newGame().(*game)
+	g.State = _GAME_IN_PROGRESS
+	g.PlayerIds = [2]string{`1`, `2`}
+	g.PlayerChoices = [2]string{`rck`, ``}
+
+	json := getEntityChangeResp(`1`, g)
+
+	assert.Equal(t, [2]string{`rck`, ``}, json[`choices`], `state should be g.State`)
+
+	json = getEntityChangeResp(`2`, g)
+
+	assert.Equal(t, [2]string{``, ``}, json[`choices`], `state should be g.State`)
 }
 
 func Test_performAct_without_act_param(t *testing.T){
