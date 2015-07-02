@@ -120,7 +120,7 @@ module.exports = function(grunt){
         },
 
         clean: {
-            allClientBuildExceptIndexHtml: ['build/client/**/*', '!build/client/index.html', '!build/client/robot.txt', '!build/client/favicon.ico'],
+            allClientBuildExceptIndexHtml: ['build/client/**/*', '!build/client/index.html', '!build/client/robots.txt', '!build/client/favicon.ico'],
             buildCss: ['build/client/**/*.css'],
             server: ['build/server', 'src/server/server.exe'],
             clientBuild: ['build/client'],
