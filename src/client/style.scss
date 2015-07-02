@@ -1,8 +1,0 @@
-@import "global";
-
-html, body{
-  @include default();
-}
-
-@import "component/home/style";
-@import "component/game/style";

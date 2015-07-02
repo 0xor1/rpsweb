@@ -1,13 +1,16 @@
 define('game/ctrl', [
     'ng',
+    'text!game/style.css',
     'text!game/tpl.html'
 ], function(
     ng,
+    style,
     tpl
 ){
     return function(ngModule){
         ngModule
-            .controller('gameCtrl', [ '$scope', '$routeParams', '$http', 'i18n', function($scope, $routeParams, $http, i18n){
+            .controller('gameCtrl', [ '$scope', '$routeParams', '$http', 'cpStyle', 'i18n', function($scope, $routeParams, $http, cpStyle, i18n){
+                cpStyle('gameCtrl', style);
                 $scope.id = $routeParams.id;
                 $scope._WAITING_FOR_OPPONENT = 0;
                 $scope._GAME_IN_PROGRESS = 1;

@@ -1,9 +1,9 @@
 require([
     'ng',
+    'ngRoute',
     'registry'
 ], function(
-    ng,
-    registry
+    ng
 ){
     var app = ng.module('app', [
         'ngRoute',
@@ -11,17 +11,17 @@ require([
     ]);
 
     app.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-            when('/', {
+        $routeProvider
+            .when('/', {
                 template: '<cp-home ng-controller="homeCtrl"></cp-home>'
-            }).
-            when('/game/:id', {
+            })
+            .when('/game/:id', {
                 template: '<cp-game ng-controller="gameCtrl"></cp-game>'
-            }).
-            when('/about', {
+            })
+            .when('/about', {
                 template: '<cp-about></cp-about>'
-            }).
-            otherwise({
+            })
+            .otherwise({
                 redirectTo: '/'
             });
     }]);
