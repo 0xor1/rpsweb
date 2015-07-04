@@ -1,9 +1,5 @@
 @import "../../global";
 
-@mixin content(){
-
-}
-
 html{
   @include default();
   body {
