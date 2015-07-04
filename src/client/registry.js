@@ -2,16 +2,18 @@ define('registry', [
     'ng',
     'service/cpStyle',
     'service/i18n',
+    'create/ctrl',
+    'game/ctrl',
     'langSelector/ctrl',
-    'home/ctrl',
-    'game/ctrl'
+    'rootLayout/ctrl'
 ], function(
     ng,
     cpStyle,
     i18n,
+    createCtrl,
+    gameCtrl,
     langSelectorCtrl,
-    homeCtrl,
-    gameCtrl
+    rootLayoutCtrl
 ){
 
     var registry = ng.module('registry', []);
@@ -21,9 +23,10 @@ define('registry', [
     i18n(registry);
 
     //controller
-    langSelectorCtrl(registry);
-    homeCtrl(registry);
+    createCtrl(registry);
     gameCtrl(registry);
+    langSelectorCtrl(registry);
+    rootLayoutCtrl(registry);
 
     return registry;
 

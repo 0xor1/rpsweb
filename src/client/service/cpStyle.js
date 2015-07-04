@@ -14,7 +14,7 @@ define('service/cpStyle', [
                 return function(cpCtrlName, styleStr){
                     if(!cpCtrlName)
                         throw 'cpCtrlName must be defined';
-                    if(!styleStr)
+                    if(typeof styleStr === 'undefined' || styleStr === null)
                         throw 'styleStr must be defined';
                     if(alreadyAdded[cpCtrlName])
                         return;

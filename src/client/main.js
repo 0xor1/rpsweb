@@ -13,7 +13,7 @@ require([
     app.config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
-                template: '<cp-home ng-controller="homeCtrl"></cp-home>'
+                template: '<cp-create ng-controller="createCtrl"></cp-create>'
             })
             .when('/game/:id', {
                 template: '<cp-game ng-controller="gameCtrl"></cp-game>'

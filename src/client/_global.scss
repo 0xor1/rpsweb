@@ -1,15 +1,12 @@
-$homeButton: #c53;
-$homeButtonActive: #f86;
-
-@mixin default{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  border: 0;
-  padding: 0;
-  overflow: hidden;
-  background: #fff;
-  color: #000;
-  font-family: Arial;
+@mixin default($position: relative, $display: inline-block, $width: 100%, $height: 100%, $margin: 0, $border: 0, $padding: 0, $background: rgba(0,0,0,0), $font: 15px arial, $overflow: hidden){
+  position: $position;
+  display: $display;
+  width: $width;
+  height: $height;
+  margin: $margin;
+  border: $border;
+  padding: $padding;
+  background: $background;
+  font: $font;
+  overflow: $overflow;
 }
