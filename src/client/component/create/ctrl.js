@@ -15,7 +15,7 @@ define('create/ctrl', [
                             $location.path('game/' + data.id);
                     });
                 };
-                $scope.create();
+                //$scope.create();
             }])
             .directive('cpCreate', function(){
                 return {restrict: 'E', template: tpl};

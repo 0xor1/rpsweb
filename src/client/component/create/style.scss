@@ -1,5 +1,6 @@
 @import "../../global";
 
 cp-create {
-  @include default();
+  @include default($display: inline-flex);
+  @include barLoader();
 }
