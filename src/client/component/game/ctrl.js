@@ -1,61 +1,76 @@
 define('game/ctrl', [
     'ng',
     'text!game/style.css',
-    'text!game/tpl.html'
+    'text!game/tpl.html',
+    'text!game/txt.json'
 ], function(
     ng,
     style,
-    tpl
+    tpl,
+    txt
 ){
     return function(ngModule){
         ngModule
             .controller('gameCtrl', [ '$scope', '$routeParams', '$http', 'cpStyle', 'i18n', function($scope, $routeParams, $http, cpStyle, i18n){
                 cpStyle('gameCtrl', style);
+                i18n($scope, txt);
+
                 $scope.id = $routeParams.id;
                 $scope._WAITING_FOR_OPPONENT = 0;
                 $scope._GAME_IN_PROGRESS = 1;
                 $scope._WAITING_FOR_RESTART = 2;
                 $scope._DEACTIVATED = 3;
                 var pollTimeout = null;
+
                 var poll = function(){
                     $http.post('api/poll', {id: $scope.id, v: $scope.v}).success(function(data){
-                        ng.extend($scope, data);
+                        addPropertiesToScope($scope, data);
                         if($scope.state !== $scope._DEACTIVATED){
                             pollTimeout = setTimeout(poll, 1000);
                         }else{
                             pollTimeout = null;
                         }
-                        console.log(data);
                     });
                 };
+
                 $scope.choose = function(choice){
-                    if($scope.state === $scope._GAME_IN_PROGRESS /*&& after turnStart*/) {
+                    var now = new Date();
+                    if($scope.state === $scope._GAME_IN_PROGRESS && $scope.turnStartDate < now) {
                         $http.post('api/act', {act: 'choose', val: choice}).success(function (data) {
-                            ng.extend($scope, data);
-                            $scope.turnStartDate = Date.parse($scope.turnStart);
-                            pollTimeout = setTimeout($scope.getInfo, 1000);
-                            console.log(data);
+                            addPropertiesToScope($scope, data);
                         });
                     }
                 };
+
                 $scope.restart = function(){
+                    var now = new Date();
+                    if($scope.state === $scope._WAITING_FOR_RESTART && now())
                     $http.post('api/act', {act: 'restart'}).success(function (data) {
-                        ng.extend($scope, data);
-                        $scope.turnStartDate = Date.parse($scope.turnStart);
-                        pollTimeout = setTimeout(poll, 1000);
-                        console.log(data);
+                        addPropertiesToScope($scope, data);
                     });
                 };
+
                 $http.post('api/join', {id: $scope.id}).success(function(data){
-                    ng.extend($scope, data);
-                    $scope.turnStartDate = Date.parse($scope.turnStart);
+                    addPropertiesToScope($scope, data);
                     pollTimeout = setTimeout(poll, 1000);
-                    console.log(data);
-                    console.log($scope.turnStartDate);
                 });
+
             }])
             .directive('cpGame', function(){
                 return {restrict: 'E', template: tpl};
             });
+
+        function addPropertiesToScope(scope, data){
+            if(typeof data === 'object') {
+                ng.extend(scope, data);
+                if(data.turnStart.substring(0, 1) === '0'){
+                    scope.turnStartDate = null;
+                }else{
+                    scope.turnStartDate = new Date(data.turnStart);
+                }
+                console.log(data);
+                console.log(scope.turnStartDate);
+            }
+        }
     }
 });

@@ -1,14 +1,8 @@
 ﻿{
-  "langs": ["en", "de", "fr", "es", "it", "ja", "zh"],
+  "langs": ["en"],
 
   "todo": {
-    "en": "to do",
-    "de": "erwartet",
-    "fr": "attente",
-    "es": "espera",
-    "it": "in attesa",
-    "ja": "待っています",
-    "zh": "等待"
+    "en": "to do"
   }
 
 }

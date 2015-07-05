@@ -1,3 +1,29 @@
-<div class="options">
-    <button class="row" ng-repeat="option in options" ng-click="choose(option)">{{option}}</button>
+<div class="app-settings">
+    <cp-lang-selector ng-controller="langSelectorCtrl"></cp-lang-selector>
+</div>
+
+<div class="summary-stats">
+
+</div>
+
+<div class="past-choices">
+</div>
+
+<div class="live-area">
+
+    <div ng-if="state == _WAITING_FOR_OPPONENT">
+    </div>
+
+    <div ng-if="state == _GAME_IN_PROGRESS">
+        <div class="options">
+            <button class="row" ng-repeat="option in options" ng-click="choose(option)">{{option}}</button>
+        </div>
+    </div>
+
+    <div ng-if="state == _WAITING_FOR_RESTART">
+    </div>
+
+    <div ng-if="state == _DEACTIVATED">
+    </div>
+
 </div>
