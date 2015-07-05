@@ -1,8 +1,40 @@
 ﻿{
   "langs": ["en"],
 
-  "todo": {
-    "en": "to do"
+  "waitingForOpponent": {
+    "en": "Copy+Paste the full address bar to a friend to play them. The game will start when they arrive."
+  },
+
+  "youWon": {
+    "en": "You Won!"
+  },
+
+  "youLost": {
+    "en": "You Lost!"
+  },
+
+  "draw": {
+    "en": "Draw!"
+  },
+
+  "p1Won": {
+    "en": "P1 Won!"
+  },
+
+  "p2Won": {
+    "en": "P2 Won!"
+  },
+
+  "restartGame": {
+    "en": "Play Again"
+  },
+
+  "deactivated": {
+    "en": "This game has ended."
+  },
+
+  "startNewGame": {
+    "en": "Start New Game"
   }
 
 }

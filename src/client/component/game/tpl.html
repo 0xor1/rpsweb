@@ -1,6 +1,4 @@
-<div class="app-settings">
-    <cp-lang-selector ng-controller="langSelectorCtrl"></cp-lang-selector>
-</div>
+<cp-lang-selector ng-controller="langSelectorCtrl"></cp-lang-selector>
 
 <div class="summary-stats">
 
@@ -12,6 +10,7 @@
 <div class="live-area">
 
     <div ng-if="state == _WAITING_FOR_OPPONENT">
+        <div class="msg">{{txt('waitingForOpponent')}}</div>
     </div>
 
     <div ng-if="state == _GAME_IN_PROGRESS">
@@ -21,9 +20,13 @@
     </div>
 
     <div ng-if="state == _WAITING_FOR_RESTART">
+        <div class="msg">{{txt('youWon')}}</div>
+        <div class="btn" ng-click="restartGame()">{{txt('restartGame')}}</div>
     </div>
 
     <div ng-if="state == _DEACTIVATED">
+        <div class="msg">{{txt('deactivated')}}</div>
+        <div class="btn" ng-click="newGame()">{{txt('startNewGame')}}</div>
     </div>
 
 </div>

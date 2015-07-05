@@ -1,4 +1,24 @@
 @import "../../global";
 
 cp-game {
+  cp-lang-selector{
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .btn {
+    display: inline-block;
+    cursor: pointer;
+    background: #58fc79 linear-gradient(to bottom, #58fc79, #17ba3d);
+    border-radius: 10px;
+    color: #000;
+    padding: 10px 15px 10px 15px;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: #96ffb0 linear-gradient(to bottom, #96ffb0, #3db859);
+  }
+  .btn:active {
+    background: #58fc79 linear-gradient(to bottom, #58fc79, #17ba3d);
+  }
 }
