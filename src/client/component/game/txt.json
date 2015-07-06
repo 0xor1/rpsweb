@@ -1,40 +1,104 @@
 ﻿{
-  "langs": ["en"],
+  "langs": ["en", "de", "es", "fr", "it", "ja", "zh"],
 
-  "waitingForOpponent": {
-    "en": "Copy+Paste the full address bar to a friend to play them. The game will start when they arrive."
+  "sendLink": {
+    "en": "Send link to opponent, the game will start when they arrive.",
+    "de": "Sende den Link an Gegner, wird das Spiel zu starten, wenn sie ankommen.",
+    "es": "Señalar un oponente, el juego comenzará cuando llegan.",
+    "fr": "Envoyer le lien à l'adversaire , le jeu va commencer quand ils arrivent.",
+    "it": "Inviare il link al avversario , la partita ha inizio quando arrivano.",
+    "ja": "彼らが到着したときに、相手へのリンクを送信し、ゲームが開始されます。",
+    "zh": "发送链接给对方，当他们到达时，游戏将开始。"
+  },
+
+  "wins": {
+    "en": "Wins:",
+    "de": "Erfolge:",
+    "es": "Victorias:",
+    "fr": "Victoires:",
+    "it": "Vittorie:",
+    "ja": "勝：",
+    "zh": "胜："
   },
 
   "youWon": {
-    "en": "You Won!"
+    "en": "You Won!",
+    "de": "Du Gewinnst!",
+    "es": "Ganaste!",
+    "fr": "Tu As Gagné!",
+    "it": "Hai Vinto!",
+    "ja": "あなたが勝利します！",
+    "zh": "你赢了！"
   },
 
   "youLost": {
-    "en": "You Lost!"
+    "en": "You Lost!",
+    "de": "Du hast verloren!",
+    "es": "Perdiste!",
+    "fr": "Tu As Perdu!",
+    "it": "Hai Perso!",
+    "ja": "あなたが負けました！",
+    "zh": "你输了！"
   },
 
   "draw": {
-    "en": "Draw!"
+    "en": "Draw!",
+    "de": "Remis!",
+    "es": "las tablas!",
+    "fr": "le match nul!",
+    "it": "Situazione di stallo !",
+    "ja": "こう着状態！",
+    "zh": "平局！"
   },
 
   "p1Won": {
-    "en": "P1 Won!"
+    "en": "P1 Won!",
+    "de": "P1 Gewonnen!",
+    "es": "P1 Ganaste!",
+    "fr": "P1 Gagné!",
+    "it": "P1 Vinto!",
+    "ja": "P1ウォン！",
+    "zh": "P1赢了！"
   },
 
   "p2Won": {
-    "en": "P2 Won!"
+    "en": "P2 Won!",
+    "de": "P2 Gewonnen!",
+    "es": "P2 Ganaste!:",
+    "fr": "P1 Gagné!",
+    "it": "P2 Vinto!",
+    "ja": "P2ウォン！",
+    "zh": "P2赢了！"
   },
 
   "restartGame": {
-    "en": "Play Again"
+    "en": "Play Again",
+    "de": "Spiel nochmal",
+    "es": "Juega De Nuevo",
+    "fr": "Rejouer",
+    "it": "gioca ancora",
+    "ja": "再びプレー",
+    "zh": "再玩一次"
   },
 
   "deactivated": {
-    "en": "This game has ended."
+    "en": "This game has ended.",
+    "de": "Dieses Spiel ist zu Ende.",
+    "es": "Este juego ha terminado.",
+    "fr": "Ce jeu est terminé.",
+    "it": "Questo gioco è terminato.",
+    "ja": "このゲームは終了しました。",
+    "zh": "这场比赛已经结束。"
   },
 
   "startNewGame": {
-    "en": "Start New Game"
+    "en": "Start New Game",
+    "de": "Neues Spiel starten",
+    "es": "Iniciar nuevo juego",
+    "fr": "Commencer une nouvelle partie",
+    "it": "Inizia nuova partita",
+    "ja": "新しいゲームを開始します",
+    "zh": "开始新游戏"
   }
 
 }

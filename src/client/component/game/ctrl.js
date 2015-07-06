@@ -26,6 +26,7 @@ define('game/ctrl', [
                 var lastTurnStartStr = null;
 
                 var poll = function(){
+                    clearTimeout(pollTimeout);
                     $http.post('api/poll', {id: $scope.id, v: $scope.v}).success(function(data){
                         addPropertiesToScope(data);
                         if($scope.state !== $scope._DEACTIVATED){
@@ -57,10 +58,13 @@ define('game/ctrl', [
                     $location.path('/');
                 };
 
-                $http.post('api/join', {id: $scope.id}).success(function(data){
-                    addPropertiesToScope(data);
-                    pollTimeout = setTimeout(poll, 1000);
-                });
+                function join() {
+                    clearTimeout(pollTimeout);
+                    $http.post('api/join', {id: $scope.id}).success(function (data) {
+                        addPropertiesToScope(data);
+                        pollTimeout = setTimeout(poll, 1000);
+                    });
+                }
 
                 function addPropertiesToScope(data){
                     if(typeof data === 'object') {
@@ -84,6 +88,8 @@ define('game/ctrl', [
                     var now = (new Date()).getTime();
                     var turnStart = $scope.turnStartDate.getTime();
                 }
+
+                join();
             }])
             .directive('cpGame', function(){
                 return {restrict: 'E', template: tpl};
