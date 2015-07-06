@@ -62,6 +62,7 @@ define('game/ctrl', [
                     clearTimeout(pollTimeout);
                     $http.post('api/join', {id: $scope.id}).success(function (data) {
                         addPropertiesToScope(data);
+                        $scope.link = window.location.href;
                         pollTimeout = setTimeout(poll, 1000);
                     });
                 }
