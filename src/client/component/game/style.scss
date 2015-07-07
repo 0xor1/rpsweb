@@ -4,6 +4,9 @@ cp-game {
   @include default($display: inline-flex);
   @include barLoader();
   flex-direction: column;
+  > div{
+    margin: auto;
+  }
   cp-lang-selector{
     position: absolute;
     top: 0;
