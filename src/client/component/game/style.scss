@@ -1,6 +1,9 @@
 @import "../../global";
 
 cp-game {
+  @include default($display: inline-flex);
+  @include barLoader();
+  flex-direction: column;
   cp-lang-selector{
     position: absolute;
     top: 0;

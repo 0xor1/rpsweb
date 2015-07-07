@@ -19,14 +19,14 @@ const(
 
 func RouteLocalTest(router *mux.Router, options []string, resultHalfMatrix [][]int, millisecsPerChoice int, newAuthKey string, newCrypKey string, oldAuthKey string, oldCrypKey string){
 	initStaticProperties(options, resultHalfMatrix, millisecsPerChoice)
-	joak.RouteLocalTest(router, newGame, 300, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct)
+	joak.RouteLocalTest(router, newGame, 600, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct)
 }
 
 func RouteGaeProd(router *mux.Router, options []string, resultHalfMatrix [][]int, millisecsPerChoice int, newAuthKey string, newCrypKey string, oldAuthKey string, oldCrypKey string, ctxFactory joak.ContextFactory) error {
 	initStaticProperties(options, resultHalfMatrix, millisecsPerChoice)
 	deleteAfter, _ := time.ParseDuration(_DELETE_AFTER)
 	clearAfter, _ := time.ParseDuration(_DELETE_AFTER)
-	return joak.RouteGaeProd(router, newGame, 300, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter, clearAfter, `game`, ctxFactory)
+	return joak.RouteGaeProd(router, newGame, 600, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter, clearAfter, `game`, ctxFactory)
 }
 
 func initStaticProperties(ops []string, rhm [][]int, millisecsPerChoice int){
@@ -43,7 +43,7 @@ func getJoinResp(userId string, e oak.Entity) oak.Json {
 	resp[`pastChoices`] = g.PastChoices
 	resp[`resultHalfMatrix`] = resultHalfMatrix
 	resp[`turnLength`] = turnLength
-	resp[`restartTimeLimit`] = _RESTART_TIME_LIMIT
+	resp[`rematchTimeLimit`] = _REMATCH_TIME_LIMIT
 	resp[`maxTurns`] = _MAX_TURNS
 	resp[`myIdx`] = g.getPlayerIdx(userId)
 	return resp
@@ -51,15 +51,20 @@ func getJoinResp(userId string, e oak.Entity) oak.Json {
 
 func getEntityChangeResp(userId string, e oak.Entity) oak.Json {
 	g, _ := e.(*game)
+	pastChoicesCount := len(g.PastChoices)
 	json := oak.Json{
 		`turnStart`: g.TurnStart,
 		`state`: g.State,
-		`choices`: g.CurrentChoices,
+		`currentChoices`: g.CurrentChoices,
+		`pastChoicesCount`: pastChoicesCount,
+	}
+	if pastChoicesCount > 0 {
+		json[`penultimateChoices`] = g.PastChoices[pastChoicesCount - 1]
 	}
 	if g.State == _GAME_IN_PROGRESS {
 		idx := g.getPlayerIdx(userId)
 		if idx == -1 || g.CurrentChoices[idx] == `` {
-			json[`choices`] = [2]string{}
+			json[`currentChoices`] = [2]string{}
 		}
 	}
 	return json

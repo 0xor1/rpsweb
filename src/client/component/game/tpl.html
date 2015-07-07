@@ -1,33 +1,44 @@
-<cp-lang-selector ng-controller="langSelectorCtrl"></cp-lang-selector>
+<div ng-if="!joined" class="bar-loader">Loading...</div>
 
-<div class="summary-stats">
+<cp-lang-selector ng-if="joined" ng-controller="langSelectorCtrl"></cp-lang-selector>
 
+<div ng-if="joined" class="summary-stats">
+    <div>
+        <div class="played-count">
+            {{txt('played') + ' ' + pastChoicesCount}}
+        </div>
+        <div class="drawn-count">
+            {{txt('drawn') + ' ' + (pastChoicesCount - wins[0] - wins[1])}}
+        </div>
+    </div>
+    <div ng-if="myIdx > -1">
+        <div class="won-count">{{txt('won') + ' ' + wins[myIdx]}}</div>
+        <div class="lost-count">{{txt('lost') + ' ' + wins[1 - myIdx]}}</div>
+    </div>
+    <div ng-if="myIdx == -1">
+        <div class="won-count">{{txt('p1Won') + ' ' + wins[0]}}</div>
+        <div class="lost-count">{{txt('p2Won') + ' ' + wins[1]}}</div>
+    </div>
 </div>
 
-<div class="past-choices">
+<div ng-if="joined" class="past-choices">
 </div>
 
-<div class="live-area">
-
+<div ng-if="joined" class="live-area">
     <div ng-if="state == _WAITING_FOR_OPPONENT">
         <div class="msg">{{txt('sendLink')}}</div>
         <div class="link">{{link}}</div>
     </div>
-
     <div ng-if="state == _GAME_IN_PROGRESS">
         <div class="options">
             <button class="row" ng-repeat="option in options" ng-click="choose(option)">{{option}}</button>
         </div>
     </div>
-
-    <div ng-if="state == _WAITING_FOR_RESTART">
-        <div class="msg">{{txt('youWon')}}</div>
-        <div class="btn" ng-click="restartGame()">{{txt('restartGame')}}</div>
+    <div ng-if="state == _WAITING_FOR_REMATCH">
+        <div class="btn" ng-click="rematch()">{{txt('rematch')}}</div>
     </div>
-
     <div ng-if="state == _DEACTIVATED">
         <div class="msg">{{txt('deactivated')}}</div>
-        <div class="btn" ng-click="newGame()">{{txt('startNewGame')}}</div>
+        <div class="btn" ng-click="newGame()">{{txt('newGame')}}</div>
     </div>
-
 </div>

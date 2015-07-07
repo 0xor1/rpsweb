@@ -18,9 +18,6 @@ require([
             .when('/game/:id', {
                 template: '<cp-game ng-controller="gameCtrl"></cp-game>'
             })
-            .when('/about', {
-                template: '<cp-about></cp-about>'
-            })
             .otherwise({
                 redirectTo: '/'
             });
