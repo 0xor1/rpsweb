@@ -5,7 +5,7 @@ html{
   body {
     @include default();
     cp-root-layout {
-      @include default($display: inline-flex, $background: linear-gradient(to bottom, #2b2b2b 0%,#101010 88%));
+      @include default($background: linear-gradient(to bottom, #2b2b2b 0%,#101010 88%));
       color: #c3c3c3;
       flex-flow: row wrap;
 

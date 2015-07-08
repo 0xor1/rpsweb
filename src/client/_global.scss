@@ -1,4 +1,4 @@
-@mixin default($position: relative, $display: inline-block, $width: 100%, $height: 100%, $margin: 0, $border: 0, $padding: 0, $background: rgba(0,0,0,0), $font: 15px arial, $overflow: hidden){
+@mixin default($position: relative, $display: inline-flex, $width: 100%, $height: 100%, $margin: 0, $border: 0, $padding: 0, $background: rgba(0,0,0,0), $font: 15px arial, $overflow: hidden){
   position: $position;
   display: $display;
   width: $width;
@@ -9,6 +9,24 @@
   background: $background;
   font: $font;
   overflow: $overflow;
+}
+
+@mixin btn($color1: #58fc79, $color2: #17ba3d, $color3: #96ffb0, $color4: #3db859){
+  .btn {
+    display: inline-block;
+    cursor: pointer;
+    background: $color1 linear-gradient(to bottom, $color1, $color2);
+    border-radius: 10px;
+    color: #000;
+    padding: 10px 15px 10px 15px;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: $color3 linear-gradient(to bottom, $color3, $color4);
+  }
+  .btn:active {
+    background: $color1 linear-gradient(to bottom, $color1, $color2);
+  }
 }
 
 @mixin barLoader(){

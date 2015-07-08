@@ -4,20 +4,16 @@
 
 <div ng-if="joined" class="summary-stats">
     <div>
-        <div class="played-count">
-            {{txt('played') + ' ' + pastChoicesCount}}
-        </div>
-        <div class="drawn-count">
-            {{txt('drawn') + ' ' + (pastChoicesCount - wins[0] - wins[1])}}
-        </div>
+        <div class="played-count"><strong>{{txt('played') + ' ' + pastChoicesCount}}</strong></div>
+        <div class="drawn-count"><strong>{{txt('drawn') + ' ' + (pastChoicesCount - wins[0] - wins[1])}}</strong></div>
     </div>
     <div ng-if="myIdx > -1">
-        <div class="won-count">{{txt('won') + ' ' + wins[myIdx]}}</div>
-        <div class="lost-count">{{txt('lost') + ' ' + wins[1 - myIdx]}}</div>
+        <div class="won-count"><strong>{{txt('won') + ' ' + wins[myIdx]}}</strong></div>
+        <div class="lost-count"><strong>{{txt('lost') + ' ' + wins[1 - myIdx]}}</strong></div>
     </div>
     <div ng-if="myIdx == -1">
-        <div class="won-count">{{txt('p1Won') + ' ' + wins[0]}}</div>
-        <div class="lost-count">{{txt('p2Won') + ' ' + wins[1]}}</div>
+        <div class="won-count"><strong>{{txt('p1Won') + ' ' + wins[0]}}</strong></div>
+        <div class="won-count"><strong>{{txt('p2Won') + ' ' + wins[1]}}</strong></div>
     </div>
 </div>
 

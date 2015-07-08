@@ -1,30 +1,45 @@
 @import "../../global";
 
 cp-game {
-  @include default($display: inline-flex);
+  @include default();
   @include barLoader();
+  @include btn();
   flex-direction: column;
-  .summary-stats, .past-choices, .live-area{
-    @include default($height: 33.33%);
+  .summary-stats{
+    @include default($height: 40%);
+    flex-direction: column;
+    > div{
+      @include default($height: 50%);
+      > div{
+        @include default($width: 50%);
+        > strong{
+          margin: auto;
+          font-size: 5vw;
+        }
+      }
+      .played-count{
+        color: #fff;
+      }
+      .drawn-count{
+        color: #eb8f00;
+      }
+      .won-count{
+        color: #58fc79;
+      }
+      .lost-count{
+        color: #C23B22;
+      }
+    }
+  }
+  .past-choices{
+    @include default($height: 20%);
+  }
+  .live-area{
+    @include default($height: 40%);
   }
   cp-lang-selector{
     position: absolute;
     top: 0;
     right: 0;
-  }
-  .btn {
-    display: inline-block;
-    cursor: pointer;
-    background: #58fc79 linear-gradient(to bottom, #58fc79, #17ba3d);
-    border-radius: 10px;
-    color: #000;
-    padding: 10px 15px 10px 15px;
-    text-decoration: none;
-  }
-  .btn:hover {
-    background: #96ffb0 linear-gradient(to bottom, #96ffb0, #3db859);
-  }
-  .btn:active {
-    background: #58fc79 linear-gradient(to bottom, #58fc79, #17ba3d);
   }
 }
