@@ -1,6 +1,6 @@
 <div ng-if="!joined" class="bar-loader">Loading...</div>
 
-<cp-lang-selector ng-if="joined" ng-controller="langSelectorCtrl"></cp-lang-selector>
+<!--cp-lang-selector ng-if="joined" ng-controller="langSelectorCtrl"></cp-lang-selector-->
 
 <div ng-if="joined" class="summary-stats">
     <div>
@@ -22,6 +22,20 @@
 </div>
 
 <div ng-if="joined" class="past-choices">
+    <div class="result-table">
+        <div class="headings">
+            <div class="turn-count">#</div>
+            <div class="p1">{{txt('p1')}}</div>
+            <div class="p2">{{txt('p2')}}</div>
+        </div>
+        <div class="body">
+            <div class="choice-pair" ng-repeat="choicePair in pastChoices track by $index" ng-init="p1Result = getP1Result(choicePair); choiceNum = $index + 1;">
+                <div class="turn-count">{{choiceNum}}</div>
+                <div class="p1" ng-class="{win: p1Result === 1, lose: p1Result === -1, draw: p1Result === 0}">{{choicePair[0]}}</div>
+                <div class="p2" ng-class="{win: p1Result === -1, lose: p1Result === 1, draw: p1Result === 0}">{{choicePair[1]}}</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div ng-if="joined" class="live-area">
@@ -30,8 +44,8 @@
         <div class="link">{{link}}</div>
     </div>
     <div ng-if="state == _GAME_IN_PROGRESS">
-        <div class="options">
-            <button class="row" ng-repeat="option in options" ng-click="choose(option)">{{option}}</button>
+        <div class="options" ng-class="{disabled: disabled}">
+            <div class="btn" ng-repeat="option in options" ng-click="choose(option)">{{option}}</div>
         </div>
     </div>
     <div ng-if="state == _WAITING_FOR_REMATCH">

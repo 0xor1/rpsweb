@@ -16,6 +16,7 @@ define('game/ctrl', [
                 i18n($scope, txt);
 
                 $scope.joined = false;
+                $scope.disabled = true;
                 $scope.id = $routeParams.id;
                 $scope._WAITING_FOR_OPPONENT = 0;
                 $scope._GAME_IN_PROGRESS = 1;
@@ -35,6 +36,7 @@ define('game/ctrl', [
                 $scope.pastChoicesCount = null;
                 $scope.penultimateChoices = null;
 
+                var choiceIdxs = null;
                 var pollTimeout = null;
                 var timerTimeout = null;
                 var lastTurnStartStr = null;
@@ -58,6 +60,24 @@ define('game/ctrl', [
 
                 $scope.newGame = function(){
                     $location.path('/');
+                };
+
+                $scope.getP1Result = function(choices){
+                    var p1C = choices[0];
+                    var p2C = choices[1];
+
+                    if(p1C == p2C){
+                        return 0;
+                    }
+
+                    var p1CIdx = choiceIdxs[p1C];
+                    var p2CIdx = choiceIdxs[p2C];
+
+                    if(p1CIdx > p2CIdx){
+                        return $scope.resultHalfMatrix[p1CIdx - 1][p2CIdx];
+                    }else{
+                        return $scope.resultHalfMatrix[p2CIdx - 1][p1CIdx] * -1;
+                    }
                 };
 
                 function join() {
@@ -88,6 +108,13 @@ define('game/ctrl', [
                 function updateScope(data){
                     if(typeof data === 'object') {
                         ng.extend($scope, data);
+                        if(choiceIdxs == null){
+                            choiceIdxs = {};
+                            var opsLen = $scope.options.length;
+                            for(var i = 0; i < opsLen; i++){
+                                choiceIdxs[$scope.options[i]] = i;
+                            }
+                        }
                         setPastChoices();
                         setWins();
                         $scope.joined = true;
@@ -125,33 +152,10 @@ define('game/ctrl', [
 
                     if(pastChoicesLenAtLastSetWin == pcLen) return;
 
-                    var idxs = {};
-                    var opsLen = $scope.options.length;
-
-                    for(var i = 0; i < opsLen; i++){
-                        idxs[$scope.options[i]] = i;
-                    }
-
-                    var p1C = '';
-                    var p2C = '';
-                    var p1CIdx = 0;
-                    var p2CIdx = 0;
-                    var rhm = $scope.resultHalfMatrix;
-                    var p1Result;
-
                     for(var i = pastChoicesLenAtLastSetWin; i < pcLen; i++){
-                        p1C = pc[i][0];
-                        p2C = pc[i][1];
+                        var p1Result = $scope.getP1Result(pc[i]);
 
-                        if(p1C == p2C) continue;
-                        p1CIdx = idxs[p1C];
-                        p2CIdx = idxs[p2C];
-
-                        if(p1CIdx > p2CIdx){
-                            p1Result = rhm[p1CIdx - 1][p2CIdx];
-                        }else{
-                            p1Result = rhm[p2CIdx - 1][p1CIdx] * -1;
-                        }
+                        if(p1Result === 0) continue;
 
                         if(p1Result === 1){
                             $scope.wins[0] += 1;

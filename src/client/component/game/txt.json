@@ -25,6 +25,14 @@
     "en": "Lost:"
   },
 
+  "p1": {
+    "en": "P1"
+  },
+
+  "p2": {
+    "en": "P2"
+  },
+
   "sendLink": {
     "en": "Send link to opponent, the game will start when they arrive."
   },

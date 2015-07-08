@@ -4,8 +4,8 @@ cp-game {
   @include default($display: inline-flex);
   @include barLoader();
   flex-direction: column;
-  > div{
-    margin: auto;
+  .summary-stats, .past-choices, .live-area{
+    @include default($height: 33.33%);
   }
   cp-lang-selector{
     position: absolute;
