@@ -33,9 +33,15 @@ cp-game {
   }
   .past-choices{
     @include default($height: 20%);
+    > *{
+      margin: auto;
+    }
   }
   .live-area{
     @include default($height: 40%);
+    > *{
+      margin: auto;
+    }
   }
   cp-lang-selector{
     position: absolute;
