@@ -18,8 +18,15 @@ define('service/i18n', [
                     };
                     langChangeHandler(null, last_lang);
                     scope.$on(lang_change_event, langChangeHandler);
-                    scope.txt = function(strId){
-                        return i18nTxt[strId][scope.lang];
+                    scope.txt = function(strId, args){
+                        var txt = i18nTxt[strId][scope.lang];
+                        if(args){
+                            var argsLen = args.length;
+                            for(var i = 0; i < argsLen; i++){
+                                txt = txt.replace('{'+i+'}', args[i]);
+                            }
+                        }
+                        return txt;
                     };
                 };
                 service.setLang = function(lang){

@@ -16,7 +16,6 @@ define('game/ctrl', [
                 i18n($scope, txt);
 
                 $scope.joined = false;
-                $scope.disabled = true;
                 $scope.id = $routeParams.id;
                 $scope._WAITING_FOR_OPPONENT = 0;
                 $scope._GAME_IN_PROGRESS = 1;

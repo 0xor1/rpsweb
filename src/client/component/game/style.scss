@@ -32,9 +32,55 @@ cp-game {
     }
   }
   .past-choices{
-    @include default($height: 20%);
-    > *{
-      margin: auto;
+    @include default($height: 20%, $overflow: visible);
+    .result-table{
+      @include default($margin: auto, $width: 90%, $height: 90%, $background: rgba(255,255,255,0.1), $overflow: visible);
+      border-top-left-radius: 10px;
+      color: #000;
+      font-size: 2vw;
+      .cell{
+        display: flex;
+        height: 33.33%;
+        > *{
+          margin: auto;
+        }
+      }
+      .headings{
+        width: 5%;
+        height: 100%;
+        .turn-count{
+          border-top-left-radius: 10px;
+        }
+        .cell{
+          background: #00B2EE linear-gradient(135deg, #00B2EE, #009ACD);
+        }
+      }
+      .body{
+        width: 95%;
+        height: calc(100% + 17px);
+        overflow-y: hidden;
+        overflow-x: scroll;
+        white-space: nowrap;
+        > *{
+          display: inline-block;
+        }
+        .choice-pair{
+          width: 6%;
+          height: 100%;
+          .turn-count{
+            background: #00B2EE linear-gradient(135deg, #00B2EE, #009ACD);
+          }
+          .draw{
+            background: #eb8f00 linear-gradient(135deg, #eb8f00, #da6c00);
+          }
+          .lose{
+            background: #C23B22 linear-gradient(135deg, #C23B22, #C22B12);
+          }
+          .win{
+            background: #58fc79 linear-gradient(135deg, #58fc79, #17ba3d);
+          }
+        }
+      }
     }
   }
   .live-area{
