@@ -37,7 +37,7 @@ define('game/ctrl', [
 
                 var choiceIdxs = null;
                 var pollTimeout = null;
-                var timerTimeout = null;
+                var counterTimeout = null;
                 var lastTurnStartStr = null;
                 var pastChoicesLenAtLastSetWin = 0;
 
@@ -77,6 +77,10 @@ define('game/ctrl', [
                     }else{
                         return $scope.resultHalfMatrix[p2CIdx - 1][p1CIdx] * -1;
                     }
+                };
+
+                $scope.now = function(){
+                    return new Date();
                 };
 
                 function join() {
@@ -124,7 +128,7 @@ define('game/ctrl', [
                             $scope.turnStartDate = new Date(data.turnStart);
                             if(lastTurnStartStr !== $scope.turnStart){
                                 lastTurnStartStr = $scope.turnStart;
-                                setTimer();
+                                setCounter();
                             }
                         }
                         console.log(data);
@@ -166,8 +170,8 @@ define('game/ctrl', [
                     pastChoicesLenAtLastSetWin = pcLen;
                 }
 
-                function setTimer(){
-                    clearTimeout(timerTimeout);
+                function setCounter(){
+                    clearTimeout(counterTimeout);
                     var now = (new Date()).getTime();
                     var turnStart = $scope.turnStartDate.getTime();
                     //TODO

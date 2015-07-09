@@ -35,17 +35,26 @@
 </div>
 
 <div ng-if="joined" class="live-area">
-    <div ng-if="state == _WAITING_FOR_OPPONENT">
-        <div class="msg">{{txt('sendLink')}}</div>
-        <div class="link">{{link}}</div>
+    <div ng-if="state == _WAITING_FOR_OPPONENT && myIdx !== -1">
+        <div class="msg"><strong>{{txt('sendLink')}}</strong></div>
+        <div class="link"><strong>{{link}}</strong></div>
     </div>
-    <div ng-if="state == _GAME_IN_PROGRESS">
-        <div class="options">
+    <div ng-if="state == _WAITING_FOR_OPPONENT && myIdx === -1">
+        <div class="msg"><strong>{{txt('waitingForOpponent')}}</strong></div>
+    </div>
+    <div ng-if="state == _GAME_IN_PROGRESS && now() < turnStartDate">
+        <div class="count-in">{{txt('matchStarting', counter)}}</div>
+    </div>
+    <div ng-if="state == _GAME_IN_PROGRESS && now() >= turnStartDate">
+        <div ng-if="myIdx === -1"></div>
+        <div class="options" ng-if="myIdx !== -1">
             <div class="btn" ng-repeat="option in options" ng-click="choose(option)">{{option}}</div>
         </div>
     </div>
     <div ng-if="state == _WAITING_FOR_REMATCH">
-        <div class="btn" ng-click="rematch()">{{txt('rematch')}}</div>
+        <div class="msg"><strong>{{txt('gameExpires', counter)}}</strong></div>
+        <div class="btn" ng-click="rematch()" ng-if="myIdx !== -1">{{txt('rematch')}}</div>
+        <div class="msg" ng-if="myIdx === -1">{{txt('waitingForRematch')}}</div>
     </div>
     <div ng-if="state == _DEACTIVATED">
         <div class="msg">{{txt('deactivated')}}</div>

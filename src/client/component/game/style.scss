@@ -87,6 +87,11 @@ cp-game {
     @include default($height: 40%);
     > *{
       margin: auto;
+      font-size: 1.8vw;
+      .link{
+        color: #00B2EE;
+        text-decoration: underline;
+      }
     }
   }
   cp-lang-selector{

@@ -34,7 +34,23 @@
   },
 
   "sendLink": {
-    "en": "Send the link below to your opponent, the game will start when they arrive."
+    "en": "Send the link below to your opponent, the game will start when they arrive"
+  },
+
+  "waitingForOpponent": {
+    "en": "Player is waiting for an opponent, the game will start when they arrive"
+  },
+
+  "matchStarting": {
+    "en": "Match Starting In: {0}"
+  },
+
+  "gameExpires": {
+    "en": "Game Expires In: {0}"
+  },
+
+  "waitingForMatchRestart": {
+    "en": "Waiting For Players to Rematch"
   },
 
   "rematch": {
@@ -42,7 +58,7 @@
   },
 
   "deactivated": {
-    "en": "This game has ended."
+    "en": "This game has ended"
   },
 
   "newGame": {
