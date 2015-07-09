@@ -2,27 +2,27 @@
   "langs": ["en"],
 
   "played": {
-    "en": "Played:"
+    "en": "Played: {0}"
   },
 
   "drawn": {
-    "en": "Drawn:"
+    "en": "Drawn: {0}"
   },
 
   "won": {
-    "en": "Won:"
+    "en": "Won: {0}"
   },
 
   "p1Won": {
-    "en": "P1 Won:"
+    "en": "P1 Won: {0}"
   },
 
   "p2Won": {
-    "en": "P2 Won:"
+    "en": "P2 Won: {0}"
   },
 
   "lost": {
-    "en": "Lost:"
+    "en": "Lost: {0}"
   },
 
   "p1": {

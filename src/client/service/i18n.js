@@ -18,13 +18,12 @@ define('service/i18n', [
                     };
                     langChangeHandler(null, last_lang);
                     scope.$on(lang_change_event, langChangeHandler);
-                    scope.txt = function(strId, args){
+                    scope.txt = function(){
+                        var strId = arguments[0];
                         var txt = i18nTxt[strId][scope.lang];
-                        if(args){
-                            var argsLen = args.length;
-                            for(var i = 0; i < argsLen; i++){
-                                txt = txt.replace('{'+i+'}', args[i]);
-                            }
+                        var argsLen = arguments.length;
+                        for(var i = 1; i < argsLen; i++){
+                            txt = txt.replace('{'+(i-1)+'}', arguments[i]);
                         }
                         return txt;
                     };

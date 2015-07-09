@@ -32,9 +32,9 @@ cp-game {
     }
   }
   .past-choices{
-    @include default($height: 20%, $overflow: visible);
+    @include default($height: 20%);
     .result-table{
-      @include default($margin: auto, $width: 90%, $height: 90%, $background: rgba(255,255,255,0.1), $overflow: visible);
+      @include default($margin: auto, $width: 90%, $height: 90%, $background: rgba(255,255,255,0.1));
       border-top-left-radius: 10px;
       color: #000;
       font-size: 2vw;
@@ -57,9 +57,9 @@ cp-game {
       }
       .body{
         width: 95%;
-        height: calc(100% + 17px);
+        height: 100%;
         overflow-y: hidden;
-        overflow-x: scroll;
+        overflow-x: auto;
         white-space: nowrap;
         > *{
           display: inline-block;
