@@ -20,15 +20,15 @@
 <div ng-if="joined" class="past-choices">
     <div class="result-table">
         <div class="headings">
-            <div class="turn-count cell"><stong>#</stong></div>
-            <div class="p1 cell"><stong>{{txt('p1')}}</stong></div>
-            <div class="p2 cell"><stong>{{txt('p2')}}</stong></div>
+            <div class="turn-count cell"><strong>#</strong></div>
+            <div class="p1 cell"><strong>{{txt('p1')}}</strong></div>
+            <div class="p2 cell"><strong>{{txt('p2')}}</strong></div>
         </div>
         <div class="body">
             <div class="choice-pair" ng-repeat="choicePair in pastChoices track by $index" ng-init="p1Result = getP1Result(choicePair); choiceNum = $index + 1;">
-                <div class="turn-count cell"><stong>{{choiceNum}}</stong></div>
-                <div class="p1 cell" ng-class="{win: p1Result === 1, lose: p1Result === -1, draw: p1Result === 0}"><stong>{{choicePair[0]}}</stong></div>
-                <div class="p2 cell" ng-class="{win: p1Result === -1, lose: p1Result === 1, draw: p1Result === 0}"><stong>{{choicePair[1]}}</stong></div>
+                <div class="turn-count cell"><strong>{{choiceNum}}</strong></div>
+                <div class="p1 cell" ng-class="{win: p1Result === 1, lose: p1Result === -1, draw: p1Result === 0}"><strong>{{choicePair[0]}}</strong></div>
+                <div class="p2 cell" ng-class="{win: p1Result === -1, lose: p1Result === 1, draw: p1Result === 0}"><strong>{{choicePair[1]}}</strong></div>
             </div>
         </div>
     </div>
@@ -46,7 +46,8 @@
         <div class="count-in">{{txt('matchStarting', counter)}}</div>
     </div>
     <div ng-if="state == _GAME_IN_PROGRESS && now() >= turnStartDate">
-        <div ng-if="myIdx === -1"></div>
+        <div ng-if="myIdx === -1">{{txt('playersAreChoosing', counter)}}</div>
+        <div ng-if="myIdx !== -1">{{txt('choose', counter)}}</div>
         <div class="options" ng-if="myIdx !== -1">
             <div class="btn" ng-repeat="option in options" ng-click="choose(option)">{{option}}</div>
         </div>

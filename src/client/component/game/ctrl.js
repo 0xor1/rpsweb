@@ -34,6 +34,7 @@ define('game/ctrl', [
                 $scope.currentChoices = null;
                 $scope.pastChoicesCount = null;
                 $scope.penultimateChoices = null;
+                $scope.counter = null;
 
                 var choiceIdxs = null;
                 var pollTimeout = null;
@@ -126,13 +127,8 @@ define('game/ctrl', [
                             $scope.turnStartDate = null;
                         }else{
                             $scope.turnStartDate = new Date(data.turnStart);
-                            if(lastTurnStartStr !== $scope.turnStart){
-                                lastTurnStartStr = $scope.turnStart;
-                                setCounter();
-                            }
+                            setCounter();
                         }
-                        console.log(data);
-                        console.log($scope.turnStartDate);
                     }
                 }
 
@@ -172,9 +168,25 @@ define('game/ctrl', [
 
                 function setCounter(){
                     clearTimeout(counterTimeout);
+                    if($scope.state === $scope._DEACTIVATED){
+                        $scope.counter = null;
+                        return;
+                    }
                     var now = (new Date()).getTime();
                     var turnStart = $scope.turnStartDate.getTime();
-                    //TODO
+                    var counter = turnStart - now;
+                    var remainder;
+                    if(counter < 0) {
+                        if(counter > -1 * $scope.turnLength && $scope.state === $scope._GAME_IN_PROGRESS) {
+                            counter = $scope.turnLength + counter;
+                        }else{
+                            counter = $scope.turnLength + $scope.rematchTimeLimit + counter;
+                        }
+                    }
+                    remainder = counter % 1000;
+                    counter -= remainder - 1000;
+                    $scope.counter = counter / 1000;
+                    counterTimeout = setTimeout(setCounter, remainder + 100);
                 }
 
                 join();

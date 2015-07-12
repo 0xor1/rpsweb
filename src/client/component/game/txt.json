@@ -45,6 +45,14 @@
     "en": "Match Starting In: {0}"
   },
 
+  "playersAreChoosing": {
+    "en": "Players Are Choosing: {0}"
+  },
+
+  "choose": {
+    "en": "Choose Now: {0}"
+  },
+
   "gameExpires": {
     "en": "Game Expires In: {0}"
   },
