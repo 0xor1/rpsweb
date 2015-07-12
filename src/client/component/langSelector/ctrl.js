@@ -1,4 +1,4 @@
-+define('langSelector/ctrl', [
+define('langSelector/ctrl', [
     'text!langSelector/langs.json',
     'text!langSelector/tpl.html'
 ], function(
