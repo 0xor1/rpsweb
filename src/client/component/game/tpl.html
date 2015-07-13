@@ -4,8 +4,8 @@
 
 <div ng-if="joined" class="summary-stats">
     <div>
-        <div class="played-count"><strong>{{txt('played', pastChoicesCount)}}</strong></div>
-        <div class="drawn-count"><strong>{{txt('drawn', pastChoicesCount - wins[0] - wins[1])}}</strong></div>
+        <div class="played-count"><strong>{{txt('played', pastChoicesLen/2)}}</strong></div>
+        <div class="drawn-count"><strong>{{txt('drawn', (pastChoicesLen/2) - wins[0] - wins[1])}}</strong></div>
     </div>
     <div ng-if="myIdx > -1">
         <div class="won-count"><strong>{{txt('won', wins[myIdx])}}</strong></div>
@@ -25,10 +25,10 @@
             <div class="p2 cell"><strong>{{txt('p2')}}</strong></div>
         </div>
         <div class="body">
-            <div class="choice-pair" ng-repeat="choicePair in pastChoices track by $index" ng-init="p1Result = getP1Result(choicePair); choiceNum = $index + 1;">
+            <div class="choice-pair" ng-repeat="choices in (pastChoices | limitTo: pastChoices.length / 2 ) track by $index" ng-init="choiceNum = ($index*2)+1;p1Result = getP1Result(pastChoices[choiceNum-1], pastChoices[choiceNum]);">
                 <div class="turn-count cell"><strong>{{choiceNum}}</strong></div>
-                <div class="p1 cell" ng-class="{win: p1Result === 1, lose: p1Result === -1, draw: p1Result === 0}"><strong>{{choicePair[0]}}</strong></div>
-                <div class="p2 cell" ng-class="{win: p1Result === -1, lose: p1Result === 1, draw: p1Result === 0}"><strong>{{choicePair[1]}}</strong></div>
+                <div class="p1 cell" ng-class="{win: p1Result === 1, lose: p1Result === -1, draw: p1Result === 0}"><strong>{{pastChoices[choiceNum-1]}}</strong></div>
+                <div class="p2 cell" ng-class="{win: p1Result === -1, lose: p1Result === 1, draw: p1Result === 0}"><strong>{{pastChoices[choiceNum]}}</strong></div>
             </div>
         </div>
     </div>

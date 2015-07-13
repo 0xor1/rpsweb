@@ -32,7 +32,7 @@ define('game/ctrl', [
                 $scope.turnStart = null;
                 $scope.state = null;
                 $scope.currentChoices = null;
-                $scope.pastChoicesCount = null;
+                $scope.pastChoicesLen = null;
                 $scope.penultimateChoices = null;
                 $scope.counter = null;
 
@@ -40,6 +40,7 @@ define('game/ctrl', [
                 var pollTimeout = null;
                 var counterTimeout = null;
                 var lastTurnStartStr = null;
+                var newGameFailedAttempts = 0;
                 var pastChoicesLenAtLastSetWin = 0;
 
                 $scope.choose = function(choice){
@@ -62,10 +63,7 @@ define('game/ctrl', [
                     $location.path('/');
                 };
 
-                $scope.getP1Result = function(choices){
-                    var p1C = choices[0];
-                    var p2C = choices[1];
-
+                $scope.getP1Result = function(p1C, p2C){
                     if(p1C == p2C){
                         return 0;
                     }
@@ -133,11 +131,9 @@ define('game/ctrl', [
                 }
 
                 function setPastChoices(){
-                    if($scope.pastChoices.length + 1 === $scope.pastChoicesCount){
-                        var p1Choice = $scope.penultimateChoices[0];
-                        var p2Choice = $scope.penultimateChoices[1];
-                        $scope.pastChoices.push([p1Choice, p2Choice]);
-                    } else if($scope.pastChoices.length !== $scope.pastChoicesCount){
+                    if($scope.pastChoices.length + 2 === $scope.pastChoicesLen){
+                        $scope.pastChoices.push($scope.penultimateChoices[0], $scope.penultimateChoices[1]);
+                    } else if($scope.pastChoices.length !== $scope.pastChoicesLen){
                         //gone out of sync somehow, rejoin!
                         join();
                     }
@@ -151,8 +147,8 @@ define('game/ctrl', [
 
                     if(pastChoicesLenAtLastSetWin == pcLen) return;
 
-                    for(var i = pastChoicesLenAtLastSetWin; i < pcLen; i++){
-                        var p1Result = $scope.getP1Result(pc[i]);
+                    for(var i = pastChoicesLenAtLastSetWin; i < pcLen; i += 2){
+                        var p1Result = $scope.getP1Result(pc[i], pc[i + 1]);
 
                         if(p1Result === 0) continue;
 

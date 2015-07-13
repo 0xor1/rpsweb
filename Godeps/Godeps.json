@@ -7,7 +7,7 @@
 	"Deps": [
 		{
 			"ImportPath": "bitbucket.org/0xor1/rps",
-			"Rev": "b4218f92b9aa60b85b50c86fa71c18d90059517d"
+			"Rev": "9366a61835323f31193c62eaf6263f51297f9cca"
 		},
 		{
 			"ImportPath": "code.google.com/p/go-uuid/uuid",

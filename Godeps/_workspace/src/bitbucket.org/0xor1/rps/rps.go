@@ -20,14 +20,14 @@ const(
 func RouteLocalTest(router *mux.Router, options []string, resultHalfMatrix [][]int, millisecsPerChoice int, newAuthKey string, newCrypKey string, oldAuthKey string, oldCrypKey string){
 	initStaticProperties(options, resultHalfMatrix, millisecsPerChoice)
 	deleteAfter, _ := time.ParseDuration(_DELETE_AFTER)
-	joak.RouteLocalTest(router, newGame, initGame, 300, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter)
+	joak.RouteLocalTest(router, newGame, initGame, 60, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter)
 }
 
 func RouteGaeProd(router *mux.Router, options []string, resultHalfMatrix [][]int, millisecsPerChoice int, newAuthKey string, newCrypKey string, oldAuthKey string, oldCrypKey string, ctxFactory joak.ContextFactory) error {
 	initStaticProperties(options, resultHalfMatrix, millisecsPerChoice)
 	deleteAfter, _ := time.ParseDuration(_DELETE_AFTER)
 	clearAfter, _ := time.ParseDuration(_DELETE_AFTER)
-	return joak.RouteGaeProd(router, newGame, initGame, 300, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter, clearAfter, `game`, ctxFactory)
+	return joak.RouteGaeProd(router, newGame, initGame, 60, `rps`, newAuthKey, newCrypKey, oldAuthKey, oldCrypKey, newGame(), getJoinResp, getEntityChangeResp, performAct, deleteAfter, clearAfter, `game`, ctxFactory)
 }
 
 func initStaticProperties(ops []string, rhm [][]int, millisecsPerChoice int){
@@ -52,15 +52,15 @@ func getJoinResp(userId string, e oak.Entity) oak.Json {
 
 func getEntityChangeResp(userId string, e oak.Entity) oak.Json {
 	g, _ := e.(*game)
-	pastChoicesCount := len(g.PastChoices)
+	pastChoicesLen := len(g.PastChoices)
 	json := oak.Json{
 		`turnStart`: g.TurnStart,
 		`state`: g.State,
 		`currentChoices`: g.CurrentChoices,
-		`pastChoicesCount`: pastChoicesCount,
+		`pastChoicesLen`: pastChoicesLen,
 	}
-	if pastChoicesCount > 0 {
-		json[`penultimateChoices`] = g.PastChoices[pastChoicesCount - 2:]
+	if pastChoicesLen > 0 {
+		json[`penultimateChoices`] = g.PastChoices[pastChoicesLen - 2:]
 	}
 	if g.State == _GAME_IN_PROGRESS {
 		idx := g.getPlayerIdx(userId)
