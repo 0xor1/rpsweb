@@ -12,12 +12,11 @@ import(
 )
 
 const(
-	_TURN_LENGTH_ERROR_MARGIN	= 500
 	_START_TIME_BUF				= 5000
 	_REMATCH_TIME_LIMIT 		= 10000
 	_TIME_UNIT					= `ms`
 	_DELETE_AFTER				= `10m`
-	_MAX_TURNS					= 51
+	_DOUBLE_MAX_TURNS			= 102
 	//STATE
 	_WAITING_FOR_OPPONENT		= 0
 	_GAME_IN_PROGRESS 			= 1
@@ -37,20 +36,27 @@ func now() time.Time {
 }
 
 func newGame() joak.Entity {
-	g := &game{State: _WAITING_FOR_OPPONENT}
-	g.PlayerIds[0] = sid.ObjectId()
-	g.PastChoices = [][2]string{}
+	return &game{PlayerIds: []string{}, PastChoices: []string{}, CurrentChoices: []string{}}
+}
+
+func initGame(e joak.Entity) joak.Entity {
+	g := e.(*game)
+	g.State = _WAITING_FOR_OPPONENT
+	dur, _ := time.ParseDuration(_DELETE_AFTER)
+	g.DeleteAfter = now().Add(dur)
+	g.PlayerIds = []string{sid.ObjectId(), ``}
+	g.CurrentChoices = []string{``, ``}
 	return g
 }
 
 type game struct {
 	Version			int			`datastore:",noindex"`
 	DeleteAfter		time.Time	`datastore:""`
-	PlayerIds 		[2]string	`datastore:",noindex"`
+	PlayerIds 		[]string	`datastore:",noindex"`
 	State	 		int			`datastore:",noindex"`
 	TurnStart		time.Time	`datastore:",noindex"`
-	PastChoices 	[][2]string	`datastore:",noindex"`
-	CurrentChoices 	[2]string	`datastore:",noindex"`
+	PastChoices 	[]string	`datastore:",noindex"`
+	CurrentChoices 	[]string	`datastore:",noindex"`
 }
 
 func (g *game) GetVersion() int {
@@ -70,7 +76,7 @@ func (g *game) SetDeleteAfter(t time.Time) {
 }
 
 func (g *game) IsActive() bool {
-	return g.State != _DEACTIVATED
+	return now().Before(g.DeleteAfter) && g.State != _DEACTIVATED
 }
 
 func (g *game) CreatedBy() string {
@@ -99,7 +105,7 @@ func (g *game) Kick() bool {
 
 	ret := false
 	if g.State == _GAME_IN_PROGRESS {
-		dur, _ := time.ParseDuration(strconv.Itoa(turnLength + _TURN_LENGTH_ERROR_MARGIN) + _TIME_UNIT)
+		dur, _ := time.ParseDuration(strconv.Itoa(turnLength) + _TIME_UNIT)
 		if now().After(g.TurnStart.Add(dur)) {
 			g.State = _WAITING_FOR_REMATCH
 			ret = true
@@ -108,8 +114,8 @@ func (g *game) Kick() bool {
 					g.CurrentChoices[i] = options[rand.Intn(len(options))]
 				}
 			}
-			g.PastChoices = append(g.PastChoices, g.CurrentChoices)
-			if len(g.PastChoices) >= _MAX_TURNS {
+			g.PastChoices = append(g.PastChoices, g.CurrentChoices[0], g.CurrentChoices[1])
+			if len(g.PastChoices) >= _DOUBLE_MAX_TURNS {
 				g.State = _DEACTIVATED
 			} else {
 				g.State = _WAITING_FOR_REMATCH
@@ -118,7 +124,7 @@ func (g *game) Kick() bool {
 	}
 
 	if g.State == _WAITING_FOR_REMATCH {
-		dur, _ := time.ParseDuration(strconv.Itoa(turnLength + _TURN_LENGTH_ERROR_MARGIN + _REMATCH_TIME_LIMIT) + _TIME_UNIT)
+		dur, _ := time.ParseDuration(strconv.Itoa(turnLength + _REMATCH_TIME_LIMIT) + _TIME_UNIT)
 		if now().After(g.TurnStart.Add(dur)) {
 			g.State = _DEACTIVATED
 			ret = true
@@ -148,8 +154,8 @@ func (g *game) makeChoice(userId string, choice string) error {
 		if now().After(g.TurnStart) {
 			g.CurrentChoices[idx] = choice
 			if g.CurrentChoices[0] != `` && g.CurrentChoices[1] != ``{
-				g.PastChoices = append(g.PastChoices, g.CurrentChoices)
-				if len(g.PastChoices) >= _MAX_TURNS {
+				g.PastChoices = append(g.PastChoices, g.CurrentChoices[0], g.CurrentChoices[1])
+				if len(g.PastChoices) >= _DOUBLE_MAX_TURNS{
 					g.State = _DEACTIVATED
 				} else {
 					g.State = _WAITING_FOR_REMATCH
