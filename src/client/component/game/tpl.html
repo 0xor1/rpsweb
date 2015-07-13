@@ -26,7 +26,7 @@
         </div>
         <div class="body">
             <div class="choice-pair" ng-repeat="choices in (pastChoices | limitTo: pastChoices.length / 2 ) track by $index" ng-init="choiceNum = ($index*2)+1;p1Result = getP1Result(pastChoices[choiceNum-1], pastChoices[choiceNum]);">
-                <div class="turn-count cell"><strong>{{choiceNum}}</strong></div>
+                <div class="turn-count cell"><strong>{{$index + 1}}</strong></div>
                 <div class="p1 cell" ng-class="{win: p1Result === 1, lose: p1Result === -1, draw: p1Result === 0}"><strong>{{pastChoices[choiceNum-1]}}</strong></div>
                 <div class="p2 cell" ng-class="{win: p1Result === -1, lose: p1Result === 1, draw: p1Result === 0}"><strong>{{pastChoices[choiceNum]}}</strong></div>
             </div>

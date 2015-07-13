@@ -101,7 +101,8 @@ define('game/ctrl', [
                             pollTimeout = null;
                         }
                     }).error(function(){
-                        if(apiPath === 'api/join'){
+                        if(apiPath === 'api/join' && newGameFailedAttempts < 2){
+                            newGameFailedAttempts++;
                             $scope.newGame();
                         }
                     });
