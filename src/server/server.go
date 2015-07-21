@@ -4,7 +4,7 @@ import (
 	`log`
 	`net/http`
 	`github.com/gorilla/mux`
-	`bitbucket.org/0xor1/rps`
+	`github.com/0xor1/rps`
 )
 
 const (

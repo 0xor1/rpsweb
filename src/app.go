@@ -3,7 +3,7 @@ package app
 import (
 	`log`
 	`net/http`
-	`bitbucket.org/0xor1/rps`
+	`github.com/0xor1/rps`
 	`github.com/gorilla/mux`
 	`google.golang.org/appengine`
 	`golang.org/x/net/context`
