@@ -22,8 +22,9 @@ for easy upload to google app engine. You can see the project running on [GAE he
     * [Node](https://nodejs.org/) v0.12.*
     * [Ruby](https://www.ruby-lang.org)
         * [Compass](http://compass-style.org/)
+        * Add the ruby bin directory to your `PATH`
 
-2. `cd` to `$GOPATH/src/github.com/0xor1/rpsweb` and run:
+2. run:
     ```sh
         go get github.com/0xor1/rpsweb
         cd <path>/<to>/<rpsweb>
